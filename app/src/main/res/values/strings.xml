@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">TweetSentimentAnalyzer</string>
     <string name="home_action_bar_title">Tweet Sentiment Analyzer</string>
+    <string name="twitter_logo_content_description">Twitter logo</string>
+    <string name="home_welcome_message">Welcome to Tweet Sentiment Analyzer</string>
+    <string name="home_search_hint">User name</string>
+    <string name="home_label_message">Type a twitter\'s user name and click on search button.</string>
+    <string name="button_search_user">Search</string>
 </resources>

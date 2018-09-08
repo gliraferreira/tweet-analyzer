@@ -21,6 +21,7 @@
                                       <entry key="assetType" value="IMAGE" />
                                       <entry key="imageAsset" value="$USER_HOME$/Pictures/twitter-logo-1.png" />
                                       <entry key="outputName" value="ic_twitter_logo" />
+                                      <entry key="theme" value="CUSTOM" />
                                     </map>
                                   </option>
                                 </PersistentState>
