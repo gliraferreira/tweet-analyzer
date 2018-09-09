@@ -5,7 +5,7 @@ import android.os.Bundle
 import android.view.View
 import br.com.gabriellira.tweetsentimentanalyzer.R
 import br.com.gabriellira.tweetsentimentanalyzer.di.DaggerHomeComponent
-import br.com.gabriellira.tweetsentimentanalyzer.entities.User
+import br.com.gabriellira.tweetsentimentanalyzer.domain.User
 import kotlinx.android.synthetic.main.activity_home.*
 import javax.inject.Inject
 

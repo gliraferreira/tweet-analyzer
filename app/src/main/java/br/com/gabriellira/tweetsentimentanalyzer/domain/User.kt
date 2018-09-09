@@ -1,4 +1,4 @@
-package br.com.gabriellira.tweetsentimentanalyzer.entities
+package br.com.gabriellira.tweetsentimentanalyzer.domain
 
 data class User(
         val id: Long,

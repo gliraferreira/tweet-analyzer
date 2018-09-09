@@ -9,3 +9,4 @@
 /captures
 .externalNativeBuild
 .idea/sonarlint/
+.idea/caches/
