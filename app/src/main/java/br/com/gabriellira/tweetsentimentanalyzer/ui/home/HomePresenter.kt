@@ -1,6 +1,9 @@
 package br.com.gabriellira.tweetsentimentanalyzer.ui.home
 
-class HomePresenter : HomeContract.Presenter {
+import br.com.gabriellira.tweetsentimentanalyzer.domain.TwitterDomain
+import javax.inject.Inject
+
+class HomePresenter(private val twitterDomain: TwitterDomain) : HomeContract.Presenter {
 
     private lateinit var view: HomeContract.View
 

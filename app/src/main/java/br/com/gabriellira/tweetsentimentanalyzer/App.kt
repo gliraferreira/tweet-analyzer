@@ -1,8 +1,8 @@
 package br.com.gabriellira.tweetsentimentanalyzer
 
 import android.app.Application
-import br.com.gabriellira.tweetsentimentanalyzer.di.AppComponent
-import br.com.gabriellira.tweetsentimentanalyzer.di.DaggerAppComponent
+import br.com.gabriellira.tweetsentimentanalyzer.di.app.AppComponent
+import br.com.gabriellira.tweetsentimentanalyzer.di.app.DaggerAppComponent
 
 class App : Application() {
 
@@ -17,6 +17,10 @@ class App : Application() {
     fun setup() {
         component = DaggerAppComponent.builder().build()
         component.inject(this)
+    }
+
+    fun provideAppComponent(): AppComponent {
+        return component
     }
 
     companion object {

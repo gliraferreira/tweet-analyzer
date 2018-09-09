@@ -6,7 +6,7 @@ import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 
-open class BaseService {
+open class BaseRepository {
 
     protected fun getRetrofit(baseUrl: String, interceptor: Interceptor): Retrofit =
             Retrofit.Builder().apply {

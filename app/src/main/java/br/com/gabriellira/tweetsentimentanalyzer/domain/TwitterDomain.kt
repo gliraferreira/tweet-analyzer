@@ -11,9 +11,10 @@ import retrofit2.HttpException
 
 class TwitterDomain (
         private val dataSource: TwitterDataSource,
-        private val userMapper: UserMapper,
-        private val tweetMapper: TweetMapper
+        private val userMapper: UserMapper = UserMapper(),
+        private val tweetMapper: TweetMapper = TweetMapper()
 ) {
+
     fun getTweets(userName: String): Observable<List<Tweet>> {
         return dataSource
                 .loadTweets(userName)
