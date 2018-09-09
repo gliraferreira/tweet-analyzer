@@ -1,6 +1,6 @@
 package br.com.gabriellira.tweetsentimentanalyzer.repositories.network.twitter.api
 
-import br.com.gabriellira.tweetsentimentanalyzer.repositories.network.twitter.entities.AuthResponse
+import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.network.twitter.AuthResponse
 import io.reactivex.Observable
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
@@ -10,5 +10,5 @@ interface AuthAPI {
 
     @FormUrlEncoded
     @POST("/oauth2/token")
-    fun requestAuth(@Field("grant_type") grantType: String = "client_credentials"): Observable<AuthResponse>
+    fun getAccessToken(@Field("grant_type") grantType: String = "client_credentials"): Observable<AuthResponse>
 }

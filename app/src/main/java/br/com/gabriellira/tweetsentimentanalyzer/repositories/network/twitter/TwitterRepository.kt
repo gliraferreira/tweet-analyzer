@@ -1,17 +1,16 @@
 package br.com.gabriellira.tweetsentimentanalyzer.repositories.network.twitter
 
 import br.com.gabriellira.tweetsentimentanalyzer.BuildConfig
-import br.com.gabriellira.tweetsentimentanalyzer.domain.Tweet
-import br.com.gabriellira.tweetsentimentanalyzer.domain.User
+import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.exceptions.twitter.TwitterAuthException
 import br.com.gabriellira.tweetsentimentanalyzer.repositories.database.TwitterSettings
 import br.com.gabriellira.tweetsentimentanalyzer.repositories.network.BaseService
 import br.com.gabriellira.tweetsentimentanalyzer.repositories.network.twitter.api.AuthAPI
 import br.com.gabriellira.tweetsentimentanalyzer.repositories.network.twitter.api.TwitterAPI
-import br.com.gabriellira.tweetsentimentanalyzer.repositories.network.twitter.entities.AuthResponse
+import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.network.twitter.StatusResponse
+import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.network.twitter.UsersResponse
 import br.com.gabriellira.tweetsentimentanalyzer.repositories.network.twitter.interceptors.CredentialsInterceptor
 import br.com.gabriellira.tweetsentimentanalyzer.repositories.network.twitter.interceptors.RequestAccessTokenInterceptor
 import io.reactivex.Observable
-import okhttp3.Interceptor
 
 class TwitterRepository(private val settings: TwitterSettings) : BaseService(), TwitterDataSource {
 
@@ -23,12 +22,29 @@ class TwitterRepository(private val settings: TwitterSettings) : BaseService(), 
                     RequestAccessTokenInterceptor(BuildConfig.TwitterSecretKey, BuildConfig.TwitterConsumerKey))
                     .create(AuthAPI::class.java)
 
-    override fun loadTweets(userName: String): Observable<List<Tweet>> {
-        return twitterApi
-                .getTweets(userName)
+    override fun loadTweets(userName: String): Observable<List<StatusResponse>> {
+        return getAccessToken().flatMap { twitterApi.getTweets(userName) }
     }
 
-    override fun searchUser(userName: String): Observable<User> = twitterApi.getTwitterUser(userName)
+    override fun searchUser(userName: String): Observable<UsersResponse> {
+        return getAccessToken().flatMap { twitterApi.getTwitterUser(userName) }
+    }
 
-    override fun requestAuth(): Observable<AuthResponse> = authApi.requestAuth()
+    private fun getAccessToken(): Observable<String> {
+        if (settings.hasAccessToken()) {
+            return Observable.just(settings.getAccessToken())
+        }
+
+        return authApi
+                .getAccessToken()
+                .flatMap {
+                    if (it.token_type == "bearer") {
+                        Observable.just(it.access_token)
+                    } else {
+                        Observable.error(TwitterAuthException())
+                    }
+                }
+                .doOnNext { settings.saveAccessToken(it) }
+                .onErrorResumeNext(Observable.error(TwitterAuthException()))
+    }
 }

@@ -1,4 +1,4 @@
-package br.com.gabriellira.tweetsentimentanalyzer.repositories.network.twitter.entities
+package br.com.gabriellira.tweetsentimentanalyzer.domain.entities.network.twitter
 
 data class AuthResponse (
         val token_type: String,

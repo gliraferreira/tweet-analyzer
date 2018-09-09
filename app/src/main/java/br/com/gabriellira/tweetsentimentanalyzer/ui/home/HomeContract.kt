@@ -1,6 +1,6 @@
 package br.com.gabriellira.tweetsentimentanalyzer.ui.home
 
-import br.com.gabriellira.tweetsentimentanalyzer.domain.User
+import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.model.User
 import br.com.gabriellira.tweetsentimentanalyzer.ui.base.BaseContract
 
 class HomeContract {
