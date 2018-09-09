@@ -2,6 +2,7 @@ package br.com.gabriellira.tweetsentimentanalyzer.ui.home
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.text.InputType
 import android.view.View
 import br.com.gabriellira.tweetsentimentanalyzer.R
 import br.com.gabriellira.tweetsentimentanalyzer.di.DaggerHomeComponent
@@ -37,6 +38,8 @@ class HomeActivity : AppCompatActivity(), HomeContract.View {
         resetLayout()
         home_label.visibility = View.GONE
         home_progress_bar.visibility = View.VISIBLE
+        home_btn_search_user.isEnabled = false
+        home_et_username.isEnabled = false
     }
 
     override fun hideLoadingUI() {
@@ -47,5 +50,7 @@ class HomeActivity : AppCompatActivity(), HomeContract.View {
         home_label.visibility = View.VISIBLE
         home_progress_bar.visibility = View.GONE
         home_error_label.visibility = View.GONE
+        home_btn_search_user.isEnabled = true
+        home_et_username.isEnabled = true
     }
 }

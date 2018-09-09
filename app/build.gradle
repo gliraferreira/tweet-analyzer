@@ -21,15 +21,15 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            buildConfigField "String", "TwitterApiBaseURL", "https://api.twitter.com"
-            buildConfigField "String", "TwitterSecretKey", "Secret Key"
-            buildConfigField "String", "TwitterConsumerKey", "Consumer Key"
+            buildConfigField "String", "TwitterApiBaseURL", '"https://api.twitter.com"'
+            buildConfigField "String", "TwitterSecretKey", '"Secret Key"'
+            buildConfigField "String", "TwitterConsumerKey", '"Consumer Key"'
         }
 
         debug {
-            buildConfigField "String", "TwitterApiBaseURL", "https://api.twitter.com"
-            buildConfigField "String", "TwitterSecretKey", "Secret Key"
-            buildConfigField "String", "TwitterConsumerKey", "Consumer Key"
+            buildConfigField "String", "TwitterApiBaseURL", '"https://api.twitter.com"'
+            buildConfigField "String", "TwitterSecretKey", '"Secret Key"'
+            buildConfigField "String", "TwitterConsumerKey", '"Consumer Key"'
         }
     }
     kapt {
