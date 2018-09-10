@@ -6,4 +6,7 @@
     <string name="home_search_hint">User name</string>
     <string name="home_label_message">Type a twitter\'s user name and click on search button.</string>
     <string name="button_search_user">Search</string>
+    <string name="something_went_wrong">Ops! Something went wrong. Try again later.</string>
+    <string name="user_name_required_error">Please, type the name of a user</string>
+    <string name="user_not_found_error">We couldn\'t find any user with that name.</string>
 </resources>

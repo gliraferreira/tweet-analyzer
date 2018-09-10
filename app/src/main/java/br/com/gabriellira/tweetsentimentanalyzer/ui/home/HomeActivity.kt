@@ -3,6 +3,7 @@ package br.com.gabriellira.tweetsentimentanalyzer.ui.home
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import br.com.gabriellira.tweetsentimentanalyzer.App
 import br.com.gabriellira.tweetsentimentanalyzer.R
 import br.com.gabriellira.tweetsentimentanalyzer.di.app.AppModule
@@ -33,9 +34,11 @@ class HomeActivity : AppCompatActivity(), HomeContract.View {
     }
 
     override fun displayTweetsList(user: User) {
+        Toast.makeText(this, "TODO: go to ${user.name}'s tweets list", Toast.LENGTH_LONG).show()
     }
 
     override fun onSearchResultError() {
+        displayErrorMessage(getString(R.string.something_went_wrong))
     }
 
     override fun displayLoadingUI() {
@@ -59,8 +62,17 @@ class HomeActivity : AppCompatActivity(), HomeContract.View {
     }
 
     override fun displayUserNameRequiredError() {
+        displayErrorMessage(getString(R.string.user_name_required_error))
     }
 
     override fun displayUserNotFoundError() {
+        displayErrorMessage(getString(R.string.user_not_found_error))
+    }
+
+    private fun displayErrorMessage(message: String) {
+        resetLayout()
+        home_label.visibility = View.GONE
+        home_error_label.text = message
+        home_error_label.visibility = View.VISIBLE
     }
 }
