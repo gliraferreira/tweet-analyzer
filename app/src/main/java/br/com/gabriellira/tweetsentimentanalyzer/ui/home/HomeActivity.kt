@@ -57,4 +57,10 @@ class HomeActivity : AppCompatActivity(), HomeContract.View {
         home_btn_search_user.isEnabled = true
         home_et_username.isEnabled = true
     }
+
+    override fun displayUserNameRequiredError() {
+    }
+
+    override fun displayUserNotFoundError() {
+    }
 }

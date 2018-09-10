@@ -7,6 +7,8 @@ class HomeContract {
     interface View : BaseContract.View {
         fun displayTweetsList(user: User)
         fun onSearchResultError()
+        fun displayUserNameRequiredError()
+        fun displayUserNotFoundError()
     }
 
     interface Presenter : BaseContract.Presenter<View> {

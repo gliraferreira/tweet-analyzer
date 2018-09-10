@@ -1,4 +1,4 @@
-package br.com.gabriellira.tweetsentimentanalyzer.domain.entities.network.twitter
+package br.com.gabriellira.tweetsentimentanalyzer.repositories.network.twitter.entities
 
 data class UsersResponse (
         val id: Long,

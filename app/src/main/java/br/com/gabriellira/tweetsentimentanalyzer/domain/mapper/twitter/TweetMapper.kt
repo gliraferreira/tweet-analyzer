@@ -1,7 +1,7 @@
 package br.com.gabriellira.tweetsentimentanalyzer.domain.mapper.twitter
 
 import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.model.Tweet
-import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.network.twitter.StatusResponse
+import br.com.gabriellira.tweetsentimentanalyzer.repositories.network.twitter.entities.StatusResponse
 import java.text.SimpleDateFormat
 import java.util.*
 

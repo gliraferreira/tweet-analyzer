@@ -6,8 +6,8 @@ import br.com.gabriellira.tweetsentimentanalyzer.repositories.database.TwitterSe
 import br.com.gabriellira.tweetsentimentanalyzer.repositories.network.BaseRepository
 import br.com.gabriellira.tweetsentimentanalyzer.repositories.network.twitter.api.AuthAPI
 import br.com.gabriellira.tweetsentimentanalyzer.repositories.network.twitter.api.TwitterAPI
-import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.network.twitter.StatusResponse
-import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.network.twitter.UsersResponse
+import br.com.gabriellira.tweetsentimentanalyzer.repositories.network.twitter.entities.StatusResponse
+import br.com.gabriellira.tweetsentimentanalyzer.repositories.network.twitter.entities.UsersResponse
 import br.com.gabriellira.tweetsentimentanalyzer.repositories.network.twitter.interceptors.CredentialsInterceptor
 import br.com.gabriellira.tweetsentimentanalyzer.repositories.network.twitter.interceptors.RequestAccessTokenInterceptor
 import io.reactivex.Observable
