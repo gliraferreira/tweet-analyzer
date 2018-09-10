@@ -19,11 +19,13 @@ class TwitterRepository(private val settings: TwitterSettings) : BaseRepository(
 
     private val authApi: AuthAPI =
             getRetrofit(BuildConfig.TwitterApiBaseURL,
-                    RequestAccessTokenInterceptor(BuildConfig.TwitterSecretKey, BuildConfig.TwitterConsumerKey))
+                    RequestAccessTokenInterceptor(BuildConfig.TwitterConsumerKey, BuildConfig.TwitterSecretKey))
                     .create(AuthAPI::class.java)
 
     override fun loadTweets(userName: String): Observable<List<StatusResponse>> {
-        return getAccessToken().flatMap { twitterApi.getTweets(userName) }
+        return getAccessToken().flatMap {
+            twitterApi.getTweets(userName)
+        }
     }
 
     override fun searchUser(userName: String): Observable<UsersResponse> {

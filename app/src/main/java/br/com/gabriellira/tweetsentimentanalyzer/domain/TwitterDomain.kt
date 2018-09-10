@@ -1,5 +1,6 @@
 package br.com.gabriellira.tweetsentimentanalyzer.domain
 
+import android.util.Log
 import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.exceptions.twitter.TwitterGenericException
 import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.exceptions.twitter.TwitterUserNotFoundException
 import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.model.Tweet
@@ -17,9 +18,15 @@ class TwitterDomain (
 
     fun getTweets(userName: String): Observable<List<Tweet>> {
         return dataSource
-                .loadTweets(userName)
-                .flatMap { Observable.fromIterable(it) }
-                .map { tweetMapper.statusResponseToTweet(it) }
+                .loadTweets(userName)BuildConfig.TwitterSecretKey
+                .flatMap {
+                    Log.i("Tweets", it.toString())
+                    Observable.fromIterable(it)
+                }
+                .map {
+                    Log.i("Tweets", it.toString())
+                    tweetMapper.statusResponseToTweet(it)
+                }
                 .toList()
                 .toObservable()
                 .onErrorResumeNext { error: Throwable ->
