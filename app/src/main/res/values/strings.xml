@@ -3,12 +3,15 @@
     <string name="home_action_bar_title">Tweet Sentiment Analyzer</string>
     <string name="twitter_logo_content_description">Twitter logo</string>
     <string name="home_welcome_message">Welcome to Tweet Sentiment Analyzer</string>
-    <string name="home_search_hint">User name</string>
+    <string name="home_search_hint">user</string>
     <string name="home_label_message">Type a twitter\'s user name and click on search button.</string>
     <string name="button_search_user">Search</string>
     <string name="something_went_wrong">Ops! Something went wrong. Try again later.</string>
-    <string name="user_name_required_error">Please, type the name of a user</string>
+    <string name="user_name_required_error">Please type some user\'s name</string>
     <string name="user_not_found_error">We couldn\'t find any user with that name.</string>
     <string name="tweet_text_placeholder">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque gravida eu arcu vel commodo. Quisque tincidunt massa sit amet vestibulum porttitor. Proin posuere sapien non vestibulum suscipit.</string>
     <string name="button_analyze">Analyze</string>
+    <string name="happy_sentiment">HAPPY</string>
+    <string name="sad_sentiment">SAD</string>
+    <string name="neutral_sentiment">NEUTRAL</string>
 </resources>
