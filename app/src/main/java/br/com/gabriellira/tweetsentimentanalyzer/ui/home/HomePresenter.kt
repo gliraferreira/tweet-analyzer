@@ -1,13 +1,14 @@
 package br.com.gabriellira.tweetsentimentanalyzer.ui.home
 
-import br.com.gabriellira.tweetsentimentanalyzer.domain.LoadTweetsCallback
 import br.com.gabriellira.tweetsentimentanalyzer.domain.TwitterDomain
 import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.exceptions.twitter.TwitterUserNotFoundException
-import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.model.Tweet
 import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.model.User
-import br.com.gabriellira.tweetsentimentanalyzer.domain.mapper.twitter.LoadUserCallback
+import br.com.gabriellira.tweetsentimentanalyzer.domain.LoadUserCallback
 
-class HomePresenter(private val twitterDomain: TwitterDomain) : HomeContract.Presenter, LoadUserCallback {
+class HomePresenter(
+        private val twitterDomain: TwitterDomain
+) : HomeContract.Presenter, LoadUserCallback {
+
     private lateinit var view: HomeContract.View
 
     override fun searchUser(userName: String) {

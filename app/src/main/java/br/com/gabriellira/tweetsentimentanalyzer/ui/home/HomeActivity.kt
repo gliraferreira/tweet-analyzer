@@ -9,10 +9,13 @@ import br.com.gabriellira.tweetsentimentanalyzer.R
 import br.com.gabriellira.tweetsentimentanalyzer.di.app.AppModule
 import br.com.gabriellira.tweetsentimentanalyzer.di.presentation.DaggerPresentationComponent
 import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.model.User
+import br.com.gabriellira.tweetsentimentanalyzer.ui.tweets.TweetsActivity
+import br.com.gabriellira.tweetsentimentanalyzer.ui.utils.launchActivity
 import kotlinx.android.synthetic.main.activity_home.*
 import javax.inject.Inject
 
 class HomeActivity : AppCompatActivity(), HomeContract.View {
+
     @Inject
     lateinit var presenter: HomeContract.Presenter
 
@@ -34,7 +37,9 @@ class HomeActivity : AppCompatActivity(), HomeContract.View {
     }
 
     override fun displayTweetsList(user: User) {
-        Toast.makeText(this, "TODO: go to ${user.name}'s tweets list", Toast.LENGTH_LONG).show()
+        launchActivity<TweetsActivity> {
+            putExtra(TweetsActivity.USER_EXTRA, user)
+        }
     }
 
     override fun onSearchResultError() {

@@ -10,6 +10,7 @@ class TweetsContract {
         fun displayEmptyListUI()
         fun displayTweetAnalyzedSuccess(tweet: Tweet)
         fun displayTweetAnalyzedError()
+        fun getUser(): User
     }
 
     interface Presenter : BaseContract.Presenter<View> {

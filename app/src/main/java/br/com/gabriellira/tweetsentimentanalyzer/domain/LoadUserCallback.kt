@@ -1,4 +1,4 @@
-package br.com.gabriellira.tweetsentimentanalyzer.domain.mapper.twitter
+package br.com.gabriellira.tweetsentimentanalyzer.domain
 
 import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.model.User
 

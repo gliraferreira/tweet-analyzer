@@ -1,13 +1,28 @@
 package br.com.gabriellira.tweetsentimentanalyzer.ui.tweets
 
+import br.com.gabriellira.tweetsentimentanalyzer.domain.LoadTweetsCallback
+import br.com.gabriellira.tweetsentimentanalyzer.domain.TwitterDomain
 import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.model.Tweet
 
-class TweetsPresenter : TweetsContract.Presenter {
+class TweetsPresenter(
+        private val domain: TwitterDomain
+) : TweetsContract.Presenter, LoadTweetsCallback {
+    private lateinit var view: TweetsContract.View
+
     override fun analyzeTweet(tweet: Tweet) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
     override fun attach(view: TweetsContract.View) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        this.view = view
+        domain.loadTweets(this.view.getUser().userName, this)
+    }
+
+    override fun onTweetsLoaded(tweets: List<Tweet>) {
+        view.loadTweets(tweets)
+    }
+
+    override fun onTweetsLoadingFailed(error: Throwable) {
+
     }
 }

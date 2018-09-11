@@ -1,41 +1,72 @@
 package br.com.gabriellira.tweetsentimentanalyzer.ui.tweets
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
+import br.com.gabriellira.tweetsentimentanalyzer.App
 import br.com.gabriellira.tweetsentimentanalyzer.R
+import br.com.gabriellira.tweetsentimentanalyzer.di.app.AppModule
+import br.com.gabriellira.tweetsentimentanalyzer.di.presentation.DaggerPresentationComponent
 import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.model.Tweet
+import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.model.User
+import br.com.gabriellira.tweetsentimentanalyzer.ui.utils.argument
+import kotlinx.android.synthetic.main.activity_tweets.*
+import javax.inject.Inject
 
 class TweetsActivity : AppCompatActivity(), TweetsContract.View {
-    override fun loadTweets(tweets: List<Tweet>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    @Inject
+    lateinit var presenter: TweetsContract.Presenter
 
-    override fun displayEmptyListUI() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    private lateinit var adapter: TweetsAdapter
 
-    override fun displayTweetAnalyzedSuccess(tweet: Tweet) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun displayTweetAnalyzedError() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun displayLoadingUI() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun hideLoadingUI() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun resetLayout() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
+    private val userExtra by argument<User>(USER_EXTRA)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tweets)
+
+        DaggerPresentationComponent
+                .builder()
+                .appModule(AppModule(App.instance))
+                .build().inject(this)
+
+        setupTweetsAdapter()
+        presenter.attach(this)
+    }
+
+    private fun setupTweetsAdapter() {
+        adapter = TweetsAdapter { presenter.analyzeTweet(it) }
+        tweets_recyclerview.layoutManager = LinearLayoutManager(baseContext)
+        tweets_recyclerview.adapter = adapter
+    }
+
+    override fun getUser(): User {
+        return userExtra
+    }
+
+    override fun loadTweets(tweets: List<Tweet>) {
+        adapter.setTweets(tweets)
+    }
+
+    override fun displayEmptyListUI() {
+    }
+
+    override fun displayTweetAnalyzedSuccess(tweet: Tweet) {
+    }
+
+    override fun displayTweetAnalyzedError() {
+    }
+
+    override fun displayLoadingUI() {
+    }
+
+    override fun hideLoadingUI() {
+    }
+
+    override fun resetLayout() {
+    }
+
+    companion object {
+        const val USER_EXTRA = "user"
     }
 }

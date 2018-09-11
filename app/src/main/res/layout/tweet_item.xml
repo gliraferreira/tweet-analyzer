@@ -10,39 +10,41 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical">
 
        <TextView
            android:id="@+id/tweet_item_text"
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
-           android:lines="5"
+           android:lines="4"
            android:textSize="17sp"
            tools:text="@string/tweet_text_placeholder"/>
-
-        <TextView
-            android:id="@+id/tweet_item_created_date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="textStart"
-            android:layout_marginTop="10dp"
-            android:textSize="12sp"
-            tools:text="20/09/2018 21:35"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="5dp"
-            android:orientation="vertical">
+            android:orientation="horizontal"
+            android:gravity="end">
+
+            <TextView
+                android:id="@+id/tweet_item_created_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="textStart"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="100dp"
+                android:textSize="12sp"
+                tools:text="20/09/2018 21:35"/>
 
             <Button
                 android:id="@+id/tweet_item_btn_analyze"
                 android:layout_width="150dp"
-                android:layout_height="30dp"
+                android:layout_height="40dp"
                 android:text="@string/button_analyze"
-                android:layout_gravity="end"
+                android:layout_gravity="right"
                 android:background="@drawable/rounded_corner"
                 android:textColor="@color/text_color"
                 android:visibility="visible"/>
@@ -50,7 +52,7 @@
             <LinearLayout
                 android:id="@+id/tweet_item_container_sentiment"
                 android:layout_width="150dp"
-                android:layout_height="30dp"
+                android:layout_height="40dp"
                 android:layout_gravity="end"
                 android:paddingStart="20dp"
                 android:background="@drawable/rounded_corner"
