@@ -1,6 +1,6 @@
-package br.com.gabriellira.tweetsentimentanalyzer.repositories.network.twitter.interceptors
+package br.com.gabriellira.tweetsentimentanalyzer.data.network.twitter.interceptors
 
-import br.com.gabriellira.tweetsentimentanalyzer.repositories.database.TwitterSettings
+import br.com.gabriellira.tweetsentimentanalyzer.data.database.TwitterSettings
 import okhttp3.Interceptor
 import okhttp3.Response
 

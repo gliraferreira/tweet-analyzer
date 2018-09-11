@@ -1,7 +1,7 @@
-package br.com.gabriellira.tweetsentimentanalyzer.repositories.network.twitter.api
+package br.com.gabriellira.tweetsentimentanalyzer.data.network.twitter.api
 
-import br.com.gabriellira.tweetsentimentanalyzer.repositories.network.twitter.entities.StatusResponse
-import br.com.gabriellira.tweetsentimentanalyzer.repositories.network.twitter.entities.UsersResponse
+import br.com.gabriellira.tweetsentimentanalyzer.data.network.twitter.entities.StatusResponse
+import br.com.gabriellira.tweetsentimentanalyzer.data.network.twitter.entities.UsersResponse
 import io.reactivex.Observable
 import retrofit2.http.*
 

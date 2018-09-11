@@ -1,15 +1,15 @@
-package br.com.gabriellira.tweetsentimentanalyzer.repositories.network.twitter
+package br.com.gabriellira.tweetsentimentanalyzer.data.network.twitter
 
 import br.com.gabriellira.tweetsentimentanalyzer.BuildConfig
 import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.exceptions.twitter.TwitterAuthException
-import br.com.gabriellira.tweetsentimentanalyzer.repositories.database.TwitterSettings
-import br.com.gabriellira.tweetsentimentanalyzer.repositories.network.BaseRepository
-import br.com.gabriellira.tweetsentimentanalyzer.repositories.network.twitter.api.AuthAPI
-import br.com.gabriellira.tweetsentimentanalyzer.repositories.network.twitter.api.TwitterAPI
-import br.com.gabriellira.tweetsentimentanalyzer.repositories.network.twitter.entities.StatusResponse
-import br.com.gabriellira.tweetsentimentanalyzer.repositories.network.twitter.entities.UsersResponse
-import br.com.gabriellira.tweetsentimentanalyzer.repositories.network.twitter.interceptors.CredentialsInterceptor
-import br.com.gabriellira.tweetsentimentanalyzer.repositories.network.twitter.interceptors.RequestAccessTokenInterceptor
+import br.com.gabriellira.tweetsentimentanalyzer.data.database.TwitterSettings
+import br.com.gabriellira.tweetsentimentanalyzer.data.network.BaseRepository
+import br.com.gabriellira.tweetsentimentanalyzer.data.network.twitter.api.AuthAPI
+import br.com.gabriellira.tweetsentimentanalyzer.data.network.twitter.api.TwitterAPI
+import br.com.gabriellira.tweetsentimentanalyzer.data.network.twitter.entities.StatusResponse
+import br.com.gabriellira.tweetsentimentanalyzer.data.network.twitter.entities.UsersResponse
+import br.com.gabriellira.tweetsentimentanalyzer.data.network.twitter.interceptors.CredentialsInterceptor
+import br.com.gabriellira.tweetsentimentanalyzer.data.network.twitter.interceptors.RequestAccessTokenInterceptor
 import io.reactivex.Observable
 
 class TwitterRepository(private val settings: TwitterSettings) : BaseRepository(), TwitterDataSource {

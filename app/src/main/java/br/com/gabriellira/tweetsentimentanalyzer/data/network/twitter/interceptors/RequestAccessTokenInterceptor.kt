@@ -1,4 +1,4 @@
-package br.com.gabriellira.tweetsentimentanalyzer.repositories.network.twitter.interceptors
+package br.com.gabriellira.tweetsentimentanalyzer.data.network.twitter.interceptors
 
 import okhttp3.Credentials
 import okhttp3.Interceptor

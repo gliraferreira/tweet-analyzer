@@ -1,6 +1,4 @@
-package br.com.gabriellira.tweetsentimentanalyzer.repositories.database
-
-import com.orhanobut.hawk.Hawk
+package br.com.gabriellira.tweetsentimentanalyzer.data.database
 
 interface TwitterSettings {
     fun saveAccessToken(token: String)

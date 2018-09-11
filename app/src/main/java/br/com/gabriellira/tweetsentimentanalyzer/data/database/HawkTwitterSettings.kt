@@ -1,4 +1,4 @@
-package br.com.gabriellira.tweetsentimentanalyzer.repositories.database
+package br.com.gabriellira.tweetsentimentanalyzer.data.database
 
 import android.content.Context
 import com.orhanobut.hawk.Hawk

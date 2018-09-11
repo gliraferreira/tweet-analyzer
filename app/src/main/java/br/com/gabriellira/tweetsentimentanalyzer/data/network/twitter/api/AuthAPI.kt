@@ -1,6 +1,6 @@
-package br.com.gabriellira.tweetsentimentanalyzer.repositories.network.twitter.api
+package br.com.gabriellira.tweetsentimentanalyzer.data.network.twitter.api
 
-import br.com.gabriellira.tweetsentimentanalyzer.repositories.network.twitter.entities.AuthResponse
+import br.com.gabriellira.tweetsentimentanalyzer.data.network.twitter.entities.AuthResponse
 import io.reactivex.Observable
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded

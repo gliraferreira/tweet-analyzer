@@ -1,7 +1,7 @@
 package br.com.gabriellira.tweetsentimentanalyzer.domain.mapper.twitter
 
 import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.model.User
-import br.com.gabriellira.tweetsentimentanalyzer.repositories.network.twitter.entities.UsersResponse
+import br.com.gabriellira.tweetsentimentanalyzer.data.network.twitter.entities.UsersResponse
 
 class UserMapper {
     fun mapUserFromResponse(response: UsersResponse): User {
