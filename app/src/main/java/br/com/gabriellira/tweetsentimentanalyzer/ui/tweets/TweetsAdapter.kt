@@ -1,4 +1,4 @@
-package br.com.gabriellira.tweetsentimentanalyzer.ui.tweetslist
+package br.com.gabriellira.tweetsentimentanalyzer.ui.tweets
 
 import android.graphics.drawable.GradientDrawable
 import android.support.v4.content.ContextCompat
