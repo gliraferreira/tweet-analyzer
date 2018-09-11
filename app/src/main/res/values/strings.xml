@@ -9,4 +9,6 @@
     <string name="something_went_wrong">Ops! Something went wrong. Try again later.</string>
     <string name="user_name_required_error">Please, type the name of a user</string>
     <string name="user_not_found_error">We couldn\'t find any user with that name.</string>
+    <string name="tweet_text_placeholder">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque gravida eu arcu vel commodo. Quisque tincidunt massa sit amet vestibulum porttitor. Proin posuere sapien non vestibulum suscipit.</string>
+    <string name="button_analyze">Analyze</string>
 </resources>
