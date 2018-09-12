@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.view.MenuItem
+import android.view.View
 import br.com.gabriellira.tweetsentimentanalyzer.App
 import br.com.gabriellira.tweetsentimentanalyzer.R
 import br.com.gabriellira.tweetsentimentanalyzer.di.app.AppModule
@@ -11,6 +12,7 @@ import br.com.gabriellira.tweetsentimentanalyzer.di.presentation.DaggerPresentat
 import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.Tweet
 import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.User
 import br.com.gabriellira.tweetsentimentanalyzer.ui.utils.argument
+import br.com.gabriellira.tweetsentimentanalyzer.ui.utils.showToast
 import kotlinx.android.synthetic.main.activity_tweets.*
 import javax.inject.Inject
 
@@ -63,6 +65,10 @@ class TweetsActivity : AppCompatActivity(), TweetsContract.View {
     }
 
     override fun displayEmptyListUI() {
+        tweets_label.text = getString(R.string.empty_tweets_error)
+        tweets_label.visibility = View.VISIBLE
+        tweets_recyclerview.visibility = View.GONE
+        tweets_progress_bar.visibility = View.GONE
     }
 
     override fun displayTweetAnalyzedSuccess(tweet: Tweet) {
@@ -70,15 +76,27 @@ class TweetsActivity : AppCompatActivity(), TweetsContract.View {
     }
 
     override fun displayTweetAnalyzedError() {
+        showToast(getString(R.string.tweet_analyze_error))
     }
 
     override fun displayLoadingUI() {
+        tweets_recyclerview.visibility = View.GONE
+        tweets_label.visibility = View.GONE
+        tweets_progress_bar.visibility = View.VISIBLE
     }
 
     override fun hideLoadingUI() {
+        displayList()
     }
 
     override fun resetLayout() {
+        displayList()
+    }
+
+    private fun displayList() {
+        tweets_recyclerview.visibility = View.VISIBLE
+        tweets_label.visibility = View.GONE
+        tweets_progress_bar.visibility = View.GONE
     }
 
     companion object {

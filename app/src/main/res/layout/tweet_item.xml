@@ -18,7 +18,8 @@
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:lines="4"
-           android:textSize="17sp"
+           android:padding="10dp"
+           android:textSize="@dimen/tweet_text"
            tools:text="@string/tweet_text_placeholder"/>
 
         <LinearLayout
@@ -36,13 +37,13 @@
                 android:textAlignment="textStart"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="100dp"
-                android:textSize="12sp"
+                android:textSize="@dimen/tweet_creation_date"
                 tools:text="20/09/2018 21:35"/>
 
             <Button
                 android:id="@+id/tweet_item_btn_analyze"
-                android:layout_width="150dp"
-                android:layout_height="40dp"
+                android:layout_width="@dimen/shape_sentiment_width"
+                android:layout_height="@dimen/shape_sentiment_height"
                 android:text="@string/button_analyze"
                 android:layout_gravity="right"
                 android:background="@drawable/rounded_corner"
@@ -51,26 +52,44 @@
 
             <LinearLayout
                 android:id="@+id/tweet_item_container_sentiment"
-                android:layout_width="150dp"
-                android:layout_height="40dp"
+                android:layout_width="@dimen/shape_sentiment_width"
+                android:layout_height="@dimen/shape_sentiment_height"
                 android:layout_gravity="end"
-                android:paddingStart="20dp"
-                android:background="@drawable/rounded_corner"
+                android:paddingStart="15dp"
+                android:paddingTop="5dp"
+                android:background="@drawable/sentiment_shape"
                 android:visibility="gone">
 
                 <ImageView
                     android:id="@+id/tweet_item_img_sentiment"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="@dimen/sentiment_face"
+                    android:layout_height="@dimen/sentiment_face"
+                    android:layout_marginRight="10dp"
                     android:src="@drawable/happy_face"/>
 
                 <TextView
                     android:id="@+id/tweet_item_tv_sentiment"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:textSize="20sp"
-                    android:textAlignment="center"
+                    android:layout_height="wrap_content"
+                    android:textSize="18sp"
                     tools:text="HAPPY"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/tweet_item_container_sentiment_loading"
+                android:layout_width="@dimen/shape_sentiment_width"
+                android:layout_height="@dimen/shape_sentiment_height"
+                android:background="@drawable/sentiment_analysing_shape"
+                android:visibility="gone"
+                android:orientation="vertical">
+
+                <ProgressBar
+                    android:id="@+id/tweet_item_progress_bar"
+                    android:layout_width="@dimen/sentiment_progress_bar"
+                    android:layout_height="@dimen/sentiment_progress_bar"
+                    android:layout_gravity="center"
+                    android:theme="@style/AppTheme.WhiteAccent"/>
 
             </LinearLayout>
 

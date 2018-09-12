@@ -16,11 +16,27 @@
                             <entry key="actionbar">
                               <value>
                                 <PersistentState>
+                                  <option name="children">
+                                    <map>
+                                      <entry key="image">
+                                        <value>
+                                          <PersistentState>
+                                            <option name="values">
+                                              <map>
+                                                <entry key="paddingPercent" value="-5" />
+                                                <entry key="trimmed" value="true" />
+                                              </map>
+                                            </option>
+                                          </PersistentState>
+                                        </value>
+                                      </entry>
+                                    </map>
+                                  </option>
                                   <option name="values">
                                     <map>
                                       <entry key="assetType" value="IMAGE" />
-                                      <entry key="imageAsset" value="$USER_HOME$/Pictures/at.png" />
-                                      <entry key="outputName" value="ic_at" />
+                                      <entry key="imageAsset" value="$USER_HOME$/Pictures/neutral1.png" />
+                                      <entry key="outputName" value="neutral_face" />
                                     </map>
                                   </option>
                                 </PersistentState>

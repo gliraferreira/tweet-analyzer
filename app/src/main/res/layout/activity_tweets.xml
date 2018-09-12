@@ -5,11 +5,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.tweets.TweetsActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:gravity="center">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/tweets_recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+
+    <ProgressBar
+        android:id="@+id/tweets_progress_bar"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:visibility="visible"
+        tools:visibility="gone"
+        android:theme="@style/AppTheme.WhiteAccent"/>
+
+    <TextView
+        android:id="@+id/tweets_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@style/label"
+        android:visibility="gone"
+        tools:visibility="visible"
+        tools:text="There is no tweets for this user"/>
 
 </LinearLayout>

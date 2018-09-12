@@ -14,4 +14,6 @@
     <string name="happy_sentiment">HAPPY</string>
     <string name="sad_sentiment">SAD</string>
     <string name="neutral_sentiment">NEUTRAL</string>
+    <string name="tweet_analyze_error">Sorry, there was a problem to analyze this tweet.</string>
+    <string name="empty_tweets_error">We coudn\'t find any tweet for this user.</string>
 </resources>

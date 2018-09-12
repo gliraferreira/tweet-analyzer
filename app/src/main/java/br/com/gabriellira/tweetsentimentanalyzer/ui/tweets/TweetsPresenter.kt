@@ -24,6 +24,7 @@ class TweetsPresenter(
 
     override fun attach(view: TweetsContract.View) {
         this.view = view
+        this.view.displayLoadingUI()
         twitterDomain.loadTweets(user.userName, this)
     }
 
@@ -33,11 +34,17 @@ class TweetsPresenter(
 
     override fun onTweetsLoaded(tweets: List<Tweet>) {
         this.tweets = tweets
-        view.loadTweets(this.tweets)
+        if (this.tweets.isEmpty()) {
+            view.displayEmptyListUI()
+        } else {
+            view.loadTweets(this.tweets)
+        }
+        view.hideLoadingUI()
     }
 
     override fun onTweetsLoadingFailed(error: Throwable) {
-
+        view.hideLoadingUI()
+        view.displayEmptyListUI()
     }
 
     override fun onSentimentAnalyzed(tweet: Tweet) {
@@ -50,5 +57,7 @@ class TweetsPresenter(
     }
 
     override fun onErrorAnalysingSentiment(t: Throwable) {
+        view.displayTweetAnalyzedError()
+        view.loadTweets(tweets)
     }
 }

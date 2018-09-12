@@ -48,9 +48,11 @@ class TweetsAdapter(
                 tweet_item_created_date.text = tweet.creationDate.toDisplayFormat()
 
                 if (tweet.sentiment == Sentiment.UNKNOWN) {
-                    tweet_item_btn_analyze.setOnClickListener { tweetListner(tweet) }
-                    tweet_item_btn_analyze.visibility = View.VISIBLE
-                    tweet_item_container_sentiment.visibility = View.GONE
+                    tweet_item_btn_analyze.setOnClickListener {
+                        displayLoading()
+                        tweetListner(tweet)
+                    }
+                    displayButton()
                 } else {
                     val color = ContextCompat.getColor(itemView.context, getColorFromSentiment(tweet.sentiment))
 
@@ -60,10 +62,27 @@ class TweetsAdapter(
                     tweet_item_img_sentiment.setImageResource(getIconFromSentiment(tweet.sentiment))
                     tweet_item_tv_sentiment.setText(getNameFromSentiment(tweet.sentiment))
 
-                    tweet_item_btn_analyze.visibility = View.GONE
-                    tweet_item_container_sentiment.visibility = View.VISIBLE
+                    displaySentiment()
                 }
             }
+        }
+
+        private fun View.displayLoading() {
+            tweet_item_btn_analyze.visibility = View.GONE
+            tweet_item_container_sentiment.visibility = View.GONE
+            tweet_item_container_sentiment_loading.visibility = View.VISIBLE
+        }
+
+        private fun View.displaySentiment() {
+            tweet_item_btn_analyze.visibility = View.GONE
+            tweet_item_container_sentiment_loading.visibility = View.GONE
+            tweet_item_container_sentiment.visibility = View.VISIBLE
+        }
+
+        private fun View.displayButton() {
+            tweet_item_btn_analyze.visibility = View.VISIBLE
+            tweet_item_container_sentiment.visibility = View.GONE
+            tweet_item_container_sentiment_loading.visibility = View.GONE
         }
 
         private fun getColorFromSentiment(sentiment: Sentiment): Int {

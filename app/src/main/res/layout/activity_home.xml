@@ -36,10 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/home_label_message"
-            android:textAlignment="center"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
+            style="@style/label"
             android:labelFor="@id/home_et_username"
             android:visibility="gone"
             tools:visibility="visible"/>

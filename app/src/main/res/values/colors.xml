@@ -7,7 +7,8 @@
     <color name="edit_text">#f4eeee</color>
     <color name="text_color">#ffffff</color>
     <color name="text_color_error">#e93d3d</color>
-    <color name="sad_color">#8abaf9</color>
-    <color name="neutral_color">#8b8b8b</color>
+    <color name="sad_color">#6be2ef</color>
+    <color name="neutral_color">#bababa</color>
     <color name="happy_color">#fcf64a</color>
+    <color name="sentiment_loading">#f4eeee</color>
 </resources>
