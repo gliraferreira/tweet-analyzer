@@ -7,8 +7,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import br.com.gabriellira.tweetsentimentanalyzer.R
-import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.model.Sentiment
-import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.model.Tweet
+import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.Sentiment
+import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.Tweet
 import br.com.gabriellira.tweetsentimentanalyzer.ui.utils.toDisplayFormat
 import kotlinx.android.synthetic.main.tweet_item.view.*
 
@@ -47,7 +47,7 @@ class TweetsAdapter(
                 tweet_item_text.text = tweet.text
                 tweet_item_created_date.text = tweet.creationDate.toDisplayFormat()
 
-                if (tweet.sentiment == Sentiment.Unknown) {
+                if (tweet.sentiment == Sentiment.UNKNOWN) {
                     tweet_item_btn_analyze.setOnClickListener { tweetListner(tweet) }
                     tweet_item_btn_analyze.visibility = View.VISIBLE
                     tweet_item_container_sentiment.visibility = View.GONE
@@ -68,24 +68,24 @@ class TweetsAdapter(
 
         private fun getColorFromSentiment(sentiment: Sentiment): Int {
             return when(sentiment) {
-                Sentiment.Happy -> R.color.happy_color
-                Sentiment.Sad -> R.color.sad_color
+                Sentiment.HAPPY -> R.color.happy_color
+                Sentiment.SAD -> R.color.sad_color
                 else -> R.color.neutral_color
             }
         }
 
         private fun getIconFromSentiment(sentiment: Sentiment): Int {
             return when(sentiment) {
-                Sentiment.Happy -> R.drawable.happy_face
-                Sentiment.Sad -> R.drawable.sad_face
+                Sentiment.HAPPY -> R.drawable.happy_face
+                Sentiment.SAD -> R.drawable.sad_face
                 else -> R.drawable.neutral_face
             }
         }
 
         private fun getNameFromSentiment(sentiment: Sentiment): Int {
             return when(sentiment) {
-                Sentiment.Happy -> R.string.happy_sentiment
-                Sentiment.Sad -> R.string.sad_sentiment
+                Sentiment.HAPPY -> R.string.happy_sentiment
+                Sentiment.SAD -> R.string.sad_sentiment
                 else -> R.string.neutral_sentiment
             }
         }

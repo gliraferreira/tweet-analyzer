@@ -1,4 +1,4 @@
-package br.com.gabriellira.tweetsentimentanalyzer.domain.entities.model
+package br.com.gabriellira.tweetsentimentanalyzer.domain.entities
 
 import java.io.Serializable
 

@@ -1,9 +1,9 @@
 package br.com.gabriellira.tweetsentimentanalyzer.ui.home
 
 import br.com.gabriellira.tweetsentimentanalyzer.domain.TwitterDomain
-import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.exceptions.twitter.TwitterUserNotFoundException
-import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.model.User
-import br.com.gabriellira.tweetsentimentanalyzer.domain.LoadUserCallback
+import br.com.gabriellira.tweetsentimentanalyzer.domain.exceptions.TwitterUserNotFoundException
+import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.User
+import br.com.gabriellira.tweetsentimentanalyzer.domain.callbacks.LoadUserCallback
 
 class HomePresenter(
         private val twitterDomain: TwitterDomain

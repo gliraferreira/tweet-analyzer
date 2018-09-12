@@ -1,11 +1,13 @@
 package br.com.gabriellira.tweetsentimentanalyzer.domain
 
 import br.com.gabriellira.tweetsentimentanalyzer.data.network.twitter.TwitterDataSource
-import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.exceptions.twitter.TweetsNotFoundException
-import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.exceptions.twitter.TwitterGenericException
-import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.exceptions.twitter.TwitterUserNotFoundException
-import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.model.Tweet
-import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.model.User
+import br.com.gabriellira.tweetsentimentanalyzer.domain.callbacks.LoadTweetsCallback
+import br.com.gabriellira.tweetsentimentanalyzer.domain.callbacks.LoadUserCallback
+import br.com.gabriellira.tweetsentimentanalyzer.domain.exceptions.TweetsNotFoundException
+import br.com.gabriellira.tweetsentimentanalyzer.domain.exceptions.TwitterGenericException
+import br.com.gabriellira.tweetsentimentanalyzer.domain.exceptions.TwitterUserNotFoundException
+import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.Tweet
+import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.User
 import br.com.gabriellira.tweetsentimentanalyzer.domain.mapper.twitter.TweetMapper
 import br.com.gabriellira.tweetsentimentanalyzer.domain.mapper.twitter.UserMapper
 import io.reactivex.Observable

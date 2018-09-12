@@ -1,6 +1,6 @@
 package br.com.gabriellira.tweetsentimentanalyzer.domain.mapper.twitter
 
-import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.model.User
+import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.User
 import br.com.gabriellira.tweetsentimentanalyzer.data.network.twitter.entities.UsersResponse
 
 class UserMapper {

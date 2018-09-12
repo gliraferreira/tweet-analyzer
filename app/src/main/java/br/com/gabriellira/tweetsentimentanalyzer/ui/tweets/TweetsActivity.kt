@@ -3,12 +3,13 @@ package br.com.gabriellira.tweetsentimentanalyzer.ui.tweets
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.view.MenuItem
 import br.com.gabriellira.tweetsentimentanalyzer.App
 import br.com.gabriellira.tweetsentimentanalyzer.R
 import br.com.gabriellira.tweetsentimentanalyzer.di.app.AppModule
 import br.com.gabriellira.tweetsentimentanalyzer.di.presentation.DaggerPresentationComponent
-import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.model.Tweet
-import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.model.User
+import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.Tweet
+import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.User
 import br.com.gabriellira.tweetsentimentanalyzer.ui.utils.argument
 import kotlinx.android.synthetic.main.activity_tweets.*
 import javax.inject.Inject
@@ -30,8 +31,15 @@ class TweetsActivity : AppCompatActivity(), TweetsContract.View {
                 .appModule(AppModule(App.instance))
                 .build().inject(this)
 
+        setupToolbar()
         setupTweetsAdapter()
+        presenter.setUser(userExtra)
         presenter.attach(this)
+    }
+
+    private fun setupToolbar() {
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.title = "${userExtra.name}'s tweets"
     }
 
     private fun setupTweetsAdapter() {
@@ -40,8 +48,14 @@ class TweetsActivity : AppCompatActivity(), TweetsContract.View {
         tweets_recyclerview.adapter = adapter
     }
 
-    override fun getUser(): User {
-        return userExtra
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            android.R.id.home -> {
+                onBackPressed()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun loadTweets(tweets: List<Tweet>) {
@@ -52,6 +66,7 @@ class TweetsActivity : AppCompatActivity(), TweetsContract.View {
     }
 
     override fun displayTweetAnalyzedSuccess(tweet: Tweet) {
+
     }
 
     override fun displayTweetAnalyzedError() {

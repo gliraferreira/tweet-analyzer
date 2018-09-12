@@ -1,7 +1,7 @@
 package br.com.gabriellira.tweetsentimentanalyzer.data.network.twitter
 
 import br.com.gabriellira.tweetsentimentanalyzer.BuildConfig
-import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.exceptions.twitter.TwitterAuthException
+import br.com.gabriellira.tweetsentimentanalyzer.domain.exceptions.TwitterAuthException
 import br.com.gabriellira.tweetsentimentanalyzer.data.database.TwitterSettings
 import br.com.gabriellira.tweetsentimentanalyzer.data.network.BaseRepository
 import br.com.gabriellira.tweetsentimentanalyzer.data.network.twitter.api.AuthAPI
@@ -12,10 +12,13 @@ import br.com.gabriellira.tweetsentimentanalyzer.data.network.twitter.intercepto
 import br.com.gabriellira.tweetsentimentanalyzer.data.network.twitter.interceptors.RequestAccessTokenInterceptor
 import io.reactivex.Observable
 
-class TwitterRepository(private val settings: TwitterSettings) : BaseRepository(), TwitterDataSource {
+class TwitterRepository(
+        private val settings: TwitterSettings
+) : BaseRepository(), TwitterDataSource {
 
     private val twitterApi: TwitterAPI =
-            getRetrofit(BuildConfig.TwitterApiBaseURL, CredentialsInterceptor(settings)).create(TwitterAPI::class.java)
+            getRetrofit(BuildConfig.TwitterApiBaseURL, CredentialsInterceptor(settings))
+                    .create(TwitterAPI::class.java)
 
     private val authApi: AuthAPI =
             getRetrofit(BuildConfig.TwitterApiBaseURL,

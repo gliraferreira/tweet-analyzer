@@ -25,6 +25,8 @@ android {
     }
 
     buildTypes.each {
+        it.buildConfigField "String", "GoogleLanguageApiURL", '"https://language.googleapis.com"'
+        it.buildConfigField "String", "GoogleApiKey", GOOGLE_API_KEY
         it.buildConfigField "String", "TwitterApiBaseURL", '"https://api.twitter.com"'
         it.buildConfigField "String", "TwitterSecretKey", TWITTER_SECRET_KEY
         it.buildConfigField "String", "TwitterConsumerKey", TWITTER_CONSUMER_KEY

@@ -1,7 +1,7 @@
 package br.com.gabriellira.tweetsentimentanalyzer.ui.tweets
 
-import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.model.Tweet
-import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.model.User
+import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.Tweet
+import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.User
 import br.com.gabriellira.tweetsentimentanalyzer.ui.base.BaseContract
 
 class TweetsContract {
@@ -10,10 +10,10 @@ class TweetsContract {
         fun displayEmptyListUI()
         fun displayTweetAnalyzedSuccess(tweet: Tweet)
         fun displayTweetAnalyzedError()
-        fun getUser(): User
     }
 
     interface Presenter : BaseContract.Presenter<View> {
         fun analyzeTweet(tweet: Tweet)
+        fun setUser(user: User)
     }
 }

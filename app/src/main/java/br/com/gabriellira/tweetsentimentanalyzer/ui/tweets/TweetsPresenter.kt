@@ -1,28 +1,54 @@
 package br.com.gabriellira.tweetsentimentanalyzer.ui.tweets
 
-import br.com.gabriellira.tweetsentimentanalyzer.domain.LoadTweetsCallback
+import br.com.gabriellira.tweetsentimentanalyzer.domain.NaturalLanguageDomain
+import br.com.gabriellira.tweetsentimentanalyzer.domain.callbacks.LoadTweetsCallback
 import br.com.gabriellira.tweetsentimentanalyzer.domain.TwitterDomain
-import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.model.Tweet
+import br.com.gabriellira.tweetsentimentanalyzer.domain.callbacks.AnalyzeSentimentCallback
+import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.Tweet
+import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.User
 
 class TweetsPresenter(
-        private val domain: TwitterDomain
-) : TweetsContract.Presenter, LoadTweetsCallback {
+        private val twitterDomain: TwitterDomain,
+        private val naturalLanguageDomain: NaturalLanguageDomain
+) : TweetsContract.Presenter, LoadTweetsCallback, AnalyzeSentimentCallback {
+
     private lateinit var view: TweetsContract.View
 
-    override fun analyzeTweet(tweet: Tweet) {
+    private lateinit var user: User;
 
+    private lateinit var tweets: List<Tweet>
+
+    override fun analyzeTweet(tweet: Tweet) {
+        naturalLanguageDomain.analyzeTweet(tweet, this)
     }
 
     override fun attach(view: TweetsContract.View) {
         this.view = view
-        domain.loadTweets(this.view.getUser().userName, this)
+        twitterDomain.loadTweets(user.userName, this)
+    }
+
+    override fun setUser(user: User) {
+        this.user = user
     }
 
     override fun onTweetsLoaded(tweets: List<Tweet>) {
-        view.loadTweets(tweets)
+        this.tweets = tweets
+        view.loadTweets(this.tweets)
     }
 
     override fun onTweetsLoadingFailed(error: Throwable) {
 
+    }
+
+    override fun onSentimentAnalyzed(tweet: Tweet) {
+        var tmpTweets = tweets.toMutableList()
+        val index = tmpTweets.indexOfFirst { it.id == tweet.id }
+        tmpTweets[index] = tweet
+
+        tweets = tmpTweets.toList()
+        view.loadTweets(tweets)
+    }
+
+    override fun onErrorAnalysingSentiment(t: Throwable) {
     }
 }

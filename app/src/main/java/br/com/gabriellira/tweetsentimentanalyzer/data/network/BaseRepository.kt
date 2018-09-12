@@ -9,23 +9,27 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 open class BaseRepository {
 
-    protected fun getRetrofit(baseUrl: String, interceptor: Interceptor): Retrofit =
-            Retrofit.Builder().apply {
-                baseUrl(baseUrl)
-                addConverterFactory(GsonConverterFactory.create())
-                addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                client(getOkHttpClient(interceptor))
-            }.build()
+    protected fun getRetrofit(baseUrl: String, interceptor: Interceptor? = null): Retrofit {
+        return Retrofit.Builder().apply {
+            baseUrl(baseUrl)
+            addConverterFactory(GsonConverterFactory.create())
+            addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            client(getOkHttpClient(interceptor))
+        }.build()
+    }
 
 
-    private fun getOkHttpClient(interceptor: Interceptor ): OkHttpClient {
+    private fun getOkHttpClient(interceptor: Interceptor?): OkHttpClient {
         val log = HttpLoggingInterceptor()
         log.level = HttpLoggingInterceptor.Level.BODY
-        return OkHttpClient.Builder()
-                .addInterceptor(interceptor)
-                .addInterceptor(log)
-                .build()
 
+        var builder = OkHttpClient.Builder()
+
+        if (interceptor != null) {
+            builder.addInterceptor(interceptor)
+        }
+
+        return builder.addInterceptor(log).build()
     }
 
 }

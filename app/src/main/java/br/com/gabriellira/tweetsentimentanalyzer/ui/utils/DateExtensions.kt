@@ -1,6 +1,6 @@
 package br.com.gabriellira.tweetsentimentanalyzer.ui.utils
 
-import br.com.gabriellira.tweetsentimentanalyzer.domain.DISPLAY_DATE_FORMAT
+import br.com.gabriellira.tweetsentimentanalyzer.domain.constants.DISPLAY_DATE_FORMAT
 import java.text.SimpleDateFormat
 import java.util.*
 

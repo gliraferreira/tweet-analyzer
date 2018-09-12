@@ -3,12 +3,11 @@ package br.com.gabriellira.tweetsentimentanalyzer.ui.home
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import br.com.gabriellira.tweetsentimentanalyzer.App
 import br.com.gabriellira.tweetsentimentanalyzer.R
 import br.com.gabriellira.tweetsentimentanalyzer.di.app.AppModule
 import br.com.gabriellira.tweetsentimentanalyzer.di.presentation.DaggerPresentationComponent
-import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.model.User
+import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.User
 import br.com.gabriellira.tweetsentimentanalyzer.ui.tweets.TweetsActivity
 import br.com.gabriellira.tweetsentimentanalyzer.ui.utils.launchActivity
 import kotlinx.android.synthetic.main.activity_home.*
