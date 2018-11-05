@@ -1,5 +1,6 @@
 package br.com.gabriellira.tweetsentimentanalyzer.domain
 
+import android.annotation.SuppressLint
 import br.com.gabriellira.tweetsentimentanalyzer.data.network.twitter.TwitterDataSource
 import br.com.gabriellira.tweetsentimentanalyzer.domain.callbacks.LoadTweetsCallback
 import br.com.gabriellira.tweetsentimentanalyzer.domain.callbacks.LoadUserCallback
@@ -22,6 +23,10 @@ class TwitterDomain (
         private val userMapper: UserMapper = UserMapper(),
         private val tweetMapper: TweetMapper = TweetMapper()
 ) {
+
+    enum class LoadUserError {
+        USER_NOT_FOUND, GENERIC_ERROR
+    }
 
     fun loadTweets(userName: String, callback: LoadTweetsCallback) {
         dataSource
@@ -62,36 +67,26 @@ class TwitterDomain (
                 })
     }
 
-    fun loadUser(userName: String, callback: LoadUserCallback) {
+    @SuppressLint("CheckResult")
+    fun loadUserInfo(userName: String, success: (result: User) -> Unit, error: (result: LoadUserError) -> Unit) {
         dataSource
                 .searchUser(userName)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .map { userMapper.mapUserFromResponse(it) }
                 .flatMap { Observable.just(it) }
-                .subscribe(object : Observer<User> {
-                    override fun onComplete() {
-                        //Not implemented
-                    }
-
-                    override fun onSubscribe(d: Disposable) {
-                        //Not implemented
-                    }
-
-                    override fun onNext(user: User) {
-                        callback.onUserLoaded(user)
-                    }
-
-                    override fun onError(error: Throwable) {
-                        if (error is HttpException) {
-                            when (error.code()) {
-                                404 -> callback.onUserLoadingFailed(TwitterUserNotFoundException())
-                                else -> callback.onUserLoadingFailed(TwitterGenericException())
+                .subscribe (
+                        { user -> user?.let { success(it) } },
+                        { errorResult ->
+                            if (errorResult is HttpException) {
+                                when (errorResult.code()) {
+                                    404 -> error(LoadUserError.USER_NOT_FOUND)
+                                    else -> error(LoadUserError.GENERIC_ERROR)
+                                }
+                            } else {
+                                error(LoadUserError.GENERIC_ERROR)
                             }
-                        } else {
-                            callback.onUserLoadingFailed(error)
                         }
-                    }
-                })
+                )
     }
 }

@@ -1,5 +1,7 @@
 package br.com.gabriellira.tweetsentimentanalyzer.ui.home
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -13,10 +15,12 @@ import br.com.gabriellira.tweetsentimentanalyzer.ui.utils.launchActivity
 import kotlinx.android.synthetic.main.activity_home.*
 import javax.inject.Inject
 
-class HomeActivity : AppCompatActivity(), HomeContract.View {
+class HomeActivity : AppCompatActivity() {
 
     @Inject
-    lateinit var presenter: HomeContract.Presenter
+    lateinit var homeVMFactory: HomeViewModelFactory
+
+    private lateinit var viewModel: HomeViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,27 +29,43 @@ class HomeActivity : AppCompatActivity(), HomeContract.View {
                 .builder()
                 .appModule(AppModule(App.instance))
                 .build().inject(this)
-        presenter.attach(this)
 
         home_btn_search_user.setOnClickListener { onSearchButtonClicked() }
+
+        viewModel = ViewModelProviders.of(this, this.homeVMFactory).get(HomeViewModel::class.java)
+        viewModel.getUser().observe(this, Observer {
+            when (it?.second) {
+                HomeViewModel.Status.LOADING -> {
+                    displayLoadingUI()
+                }
+                HomeViewModel.Status.SUCCESS -> {
+                    resetLayout()
+                    it.first?.let { user ->  displayTweetsList(user) }
+                }
+                HomeViewModel.Status.ERROR -> {
+                    hideLoadingUI()
+                    onSearchResultError()
+                }
+            }
+        })
     }
 
     private fun onSearchButtonClicked() {
         val userName = home_et_username.text.toString()
-        presenter.searchUser(userName)
+        viewModel.searchUser(userName)
     }
 
-    override fun displayTweetsList(user: User) {
+    private fun displayTweetsList(user: User) {
         launchActivity<TweetsActivity> {
             putExtra(TweetsActivity.USER_EXTRA, user)
         }
     }
 
-    override fun onSearchResultError() {
+    private fun onSearchResultError() {
         displayErrorMessage(getString(R.string.something_went_wrong))
     }
 
-    override fun displayLoadingUI() {
+    private fun displayLoadingUI() {
         resetLayout()
         home_label.visibility = View.GONE
         home_progress_bar.visibility = View.VISIBLE
@@ -53,11 +73,11 @@ class HomeActivity : AppCompatActivity(), HomeContract.View {
         home_et_username.isEnabled = false
     }
 
-    override fun hideLoadingUI() {
+    private fun hideLoadingUI() {
         resetLayout()
     }
 
-    override fun resetLayout() {
+    private fun resetLayout() {
         home_label.visibility = View.VISIBLE
         home_progress_bar.visibility = View.GONE
         home_error_label.visibility = View.GONE
@@ -65,11 +85,11 @@ class HomeActivity : AppCompatActivity(), HomeContract.View {
         home_et_username.isEnabled = true
     }
 
-    override fun displayUserNameRequiredError() {
+    private fun displayUserNameRequiredError() {
         displayErrorMessage(getString(R.string.user_name_required_error))
     }
 
-    override fun displayUserNotFoundError() {
+    private fun displayUserNotFoundError() {
         displayErrorMessage(getString(R.string.user_not_found_error))
     }
 
