@@ -2,19 +2,12 @@ package br.com.gabriellira.tweetsentimentanalyzer.domain
 
 import android.annotation.SuppressLint
 import br.com.gabriellira.tweetsentimentanalyzer.data.network.twitter.TwitterDataSource
-import br.com.gabriellira.tweetsentimentanalyzer.domain.callbacks.LoadTweetsCallback
-import br.com.gabriellira.tweetsentimentanalyzer.domain.callbacks.LoadUserCallback
-import br.com.gabriellira.tweetsentimentanalyzer.domain.exceptions.TweetsNotFoundException
-import br.com.gabriellira.tweetsentimentanalyzer.domain.exceptions.TwitterGenericException
-import br.com.gabriellira.tweetsentimentanalyzer.domain.exceptions.TwitterUserNotFoundException
 import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.Tweet
 import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.User
 import br.com.gabriellira.tweetsentimentanalyzer.domain.mapper.twitter.TweetMapper
 import br.com.gabriellira.tweetsentimentanalyzer.domain.mapper.twitter.UserMapper
 import io.reactivex.Observable
-import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
 import retrofit2.HttpException
 
@@ -28,7 +21,12 @@ class TwitterDomain (
         USER_NOT_FOUND, GENERIC_ERROR
     }
 
-    fun loadTweets(userName: String, callback: LoadTweetsCallback) {
+    enum class LoadTweetsError {
+        EMPTY_LIST, GENERIC_ERROR
+    }
+
+    @SuppressLint("CheckResult")
+    fun loadTweetsList(userName: String, success: (data: List<Tweet>) -> Unit, error: (result: LoadTweetsError) -> Unit) {
         dataSource
                 .loadTweets(userName)
                 .subscribeOn(Schedulers.newThread())
@@ -37,34 +35,24 @@ class TwitterDomain (
                 .map { tweetMapper.statusResponseToTweet(it) }
                 .toList()
                 .toObservable()
-                .subscribe(object : Observer<List<Tweet>> {
-                    override fun onComplete() {
-                        //Not implemented
-                    }
-
-                    override fun onSubscribe(d: Disposable) {
-                        //Not implemented
-                    }
-
-                    override fun onNext(tweets: List<Tweet>) {
-                        if (tweets.isEmpty()) {
-                            callback.onTweetsLoadingFailed(TweetsNotFoundException())
-                        } else {
-                            callback.onTweetsLoaded(tweets)
-                        }
-                    }
-
-                    override fun onError(error: Throwable) {
-                        if (error is HttpException) {
-                            when (error.code()) {
-                                404 -> callback.onTweetsLoadingFailed(TweetsNotFoundException())
-                                else -> callback.onTweetsLoadingFailed(TwitterGenericException())
+                .subscribe(
+                        { tweets ->
+                            if (tweets.isEmpty()) {
+                                error(LoadTweetsError.EMPTY_LIST)
+                            } else {
+                                success(tweets)
                             }
-                        } else {
-                            callback.onTweetsLoadingFailed(error)
+                        }, { errorResult ->
+                            if (errorResult is HttpException) {
+                                when (errorResult.code()) {
+                                    404 -> error(LoadTweetsError.EMPTY_LIST)
+                                    else -> error(LoadTweetsError.GENERIC_ERROR)
+                                }
+                            } else {
+                                error(LoadTweetsError.GENERIC_ERROR)
+                            }
                         }
-                    }
-                })
+                )
     }
 
     @SuppressLint("CheckResult")
@@ -75,7 +63,7 @@ class TwitterDomain (
                 .observeOn(AndroidSchedulers.mainThread())
                 .map { userMapper.mapUserFromResponse(it) }
                 .flatMap { Observable.just(it) }
-                .subscribe (
+                .subscribe(
                         { user -> user?.let { success(it) } },
                         { errorResult ->
                             if (errorResult is HttpException) {

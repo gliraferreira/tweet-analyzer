@@ -15,7 +15,7 @@ class HomeViewModelFactory @Inject constructor(
         return if (modelClass.isAssignableFrom(HomeViewModel::class.java)) {
             HomeViewModel(twitterDomain) as T
         } else {
-            throw IllegalArgumentException("ViewModel not found")
+            throw IllegalArgumentException("HomeViewModel not found")
         }
     }
 }

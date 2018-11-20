@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import br.com.gabriellira.tweetsentimentanalyzer.R
 import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.Sentiment
+import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.SentimentStatus
 import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.Tweet
 import br.com.gabriellira.tweetsentimentanalyzer.ui.utils.toDisplayFormat
 import kotlinx.android.synthetic.main.tweet_item.view.*
@@ -22,6 +23,12 @@ class TweetsAdapter(
         tweets.clear()
         tweets.addAll(tweetList)
         notifyDataSetChanged()
+    }
+
+    fun replaceItem(tweet: Tweet) {
+        val index = tweets.indexOfFirst { it.id == tweet.id }
+        tweets.set(index, tweet)
+        notifyItemChanged(index)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TweetViewHolder {
@@ -47,22 +54,25 @@ class TweetsAdapter(
                 tweet_item_text.text = tweet.text
                 tweet_item_created_date.text = tweet.creationDate.toDisplayFormat()
 
-                if (tweet.sentiment == Sentiment.UNKNOWN) {
-                    tweet_item_btn_analyze.setOnClickListener {
-                        displayLoading()
-                        tweetListner(tweet)
+                when(tweet.sentimentStatus) {
+                    SentimentStatus.ANALYZING -> displayLoading()
+                    SentimentStatus.NOT_ANALYZED -> {
+                        tweet_item_btn_analyze.setOnClickListener {
+                            tweetListner(tweet)
+                        }
+                        displayButton()
                     }
-                    displayButton()
-                } else {
-                    val color = ContextCompat.getColor(itemView.context, getColorFromSentiment(tweet.sentiment))
+                    SentimentStatus.ANALYZED -> {
+                        val color = ContextCompat.getColor(itemView.context, getColorFromSentiment(tweet.sentiment))
 
-                    val background = tweet_item_container_sentiment.background as GradientDrawable
-                    background.setColor(color)
+                        val background = tweet_item_container_sentiment.background as GradientDrawable
+                        background.setColor(color)
 
-                    tweet_item_img_sentiment.setImageResource(getIconFromSentiment(tweet.sentiment))
-                    tweet_item_tv_sentiment.setText(getNameFromSentiment(tweet.sentiment))
+                        tweet_item_img_sentiment.setImageResource(getIconFromSentiment(tweet.sentiment))
+                        tweet_item_tv_sentiment.setText(getNameFromSentiment(tweet.sentiment))
 
-                    displaySentiment()
+                        displaySentiment()
+                    }
                 }
             }
         }

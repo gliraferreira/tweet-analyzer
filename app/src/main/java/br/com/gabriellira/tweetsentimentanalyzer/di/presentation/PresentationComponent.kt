@@ -4,6 +4,7 @@ import br.com.gabriellira.tweetsentimentanalyzer.di.app.AppModule
 import br.com.gabriellira.tweetsentimentanalyzer.ui.home.HomeActivity
 import br.com.gabriellira.tweetsentimentanalyzer.ui.home.HomeViewModelFactory
 import br.com.gabriellira.tweetsentimentanalyzer.ui.tweets.TweetsActivity
+import br.com.gabriellira.tweetsentimentanalyzer.ui.tweets.TweetsViewModelFactory
 import dagger.Component
 
 @Component(modules = arrayOf(
@@ -17,4 +18,6 @@ interface PresentationComponent {
     fun inject(tweetsActivity: TweetsActivity)
 
     fun inject(homeViewModelFactory: HomeViewModelFactory)
+
+    fun inject(tweetsViewModelFactory: TweetsViewModelFactory)
 }

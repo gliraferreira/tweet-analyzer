@@ -1,5 +1,7 @@
 package br.com.gabriellira.tweetsentimentanalyzer.ui.tweets
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -9,6 +11,7 @@ import br.com.gabriellira.tweetsentimentanalyzer.App
 import br.com.gabriellira.tweetsentimentanalyzer.R
 import br.com.gabriellira.tweetsentimentanalyzer.di.app.AppModule
 import br.com.gabriellira.tweetsentimentanalyzer.di.presentation.DaggerPresentationComponent
+import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.SentimentStatus
 import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.Tweet
 import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.User
 import br.com.gabriellira.tweetsentimentanalyzer.ui.utils.argument
@@ -16,11 +19,14 @@ import br.com.gabriellira.tweetsentimentanalyzer.ui.utils.showToast
 import kotlinx.android.synthetic.main.activity_tweets.*
 import javax.inject.Inject
 
-class TweetsActivity : AppCompatActivity(), TweetsContract.View {
+class TweetsActivity : AppCompatActivity() {
+
     @Inject
-    lateinit var presenter: TweetsContract.Presenter
+    lateinit var tweetsViewModelFactory: TweetsViewModelFactory
 
     private lateinit var adapter: TweetsAdapter
+
+    private lateinit var viewModel: TweetsViewModel
 
     private val userExtra by argument<User>(USER_EXTRA)
 
@@ -35,8 +41,37 @@ class TweetsActivity : AppCompatActivity(), TweetsContract.View {
 
         setupToolbar()
         setupTweetsAdapter()
-        presenter.setUser(userExtra)
-        presenter.attach(this)
+
+        viewModel = ViewModelProviders.of(this, this.tweetsViewModelFactory).get(TweetsViewModel::class.java)
+        observeTweets()
+        observeAnalyzedTweet()
+        viewModel.loadTweets(userExtra.userName)
+    }
+
+    private fun observeAnalyzedTweet() {
+        viewModel.analyzedTweet.observe(this, Observer {
+            when (it?.second) {
+                TweetsViewModel.Status.LOADING -> it.first?.let { tweet -> adapter.replaceItem(tweet) }
+                TweetsViewModel.Status.SUCCESS -> it.first?.let { tweet -> adapter.replaceItem(tweet) }
+                TweetsViewModel.Status.ERROR -> displayTweetAnalyzedError()
+            }
+        })
+    }
+
+    private fun observeTweets() {
+        viewModel.tweets.observe(this, Observer {
+            when (it?.second) {
+                TweetsViewModel.Status.LOADING -> displayLoadingUI()
+                TweetsViewModel.Status.SUCCESS -> {
+                    hideLoadingUI()
+                    it.first?.let { tweets -> loadTweets(tweets) }
+                }
+                TweetsViewModel.Status.ERROR -> {
+                    hideLoadingUI()
+                    displayEmptyListUI()
+                }
+            }
+        })
     }
 
     private fun setupToolbar() {
@@ -45,7 +80,7 @@ class TweetsActivity : AppCompatActivity(), TweetsContract.View {
     }
 
     private fun setupTweetsAdapter() {
-        adapter = TweetsAdapter { presenter.analyzeTweet(it) }
+        adapter = TweetsAdapter { viewModel.analyzeTweet(it)}
         tweets_recyclerview.layoutManager = LinearLayoutManager(baseContext)
         tweets_recyclerview.adapter = adapter
     }
@@ -60,36 +95,28 @@ class TweetsActivity : AppCompatActivity(), TweetsContract.View {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun loadTweets(tweets: List<Tweet>) {
+    fun loadTweets(tweets: List<Tweet>) {
         adapter.setTweets(tweets)
     }
 
-    override fun displayEmptyListUI() {
+    fun displayEmptyListUI() {
         tweets_label.text = getString(R.string.empty_tweets_error)
         tweets_label.visibility = View.VISIBLE
         tweets_recyclerview.visibility = View.GONE
         tweets_progress_bar.visibility = View.GONE
     }
 
-    override fun displayTweetAnalyzedSuccess(tweet: Tweet) {
-
-    }
-
-    override fun displayTweetAnalyzedError() {
+    fun displayTweetAnalyzedError() {
         showToast(getString(R.string.tweet_analyze_error))
     }
 
-    override fun displayLoadingUI() {
+    fun displayLoadingUI() {
         tweets_recyclerview.visibility = View.GONE
         tweets_label.visibility = View.GONE
         tweets_progress_bar.visibility = View.VISIBLE
     }
 
-    override fun hideLoadingUI() {
-        displayList()
-    }
-
-    override fun resetLayout() {
+    fun hideLoadingUI() {
         displayList()
     }
 

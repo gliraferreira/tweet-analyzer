@@ -35,11 +35,9 @@ class HomeActivity : AppCompatActivity() {
         viewModel = ViewModelProviders.of(this, this.homeVMFactory).get(HomeViewModel::class.java)
         viewModel.getUser().observe(this, Observer {
             when (it?.second) {
-                HomeViewModel.Status.LOADING -> {
-                    displayLoadingUI()
-                }
+                HomeViewModel.Status.LOADING -> displayLoadingUI()
                 HomeViewModel.Status.SUCCESS -> {
-                    resetLayout()
+                    hideLoadingUI()
                     it.first?.let { user ->  displayTweetsList(user) }
                 }
                 HomeViewModel.Status.ERROR -> {
