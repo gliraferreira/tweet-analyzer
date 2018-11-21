@@ -14,14 +14,8 @@
         android:layout_height="match_parent"
         android:visibility="gone"/>
 
-    <ProgressBar
-        android:id="@+id/tweets_progress_bar"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:visibility="visible"
-        tools:visibility="gone"
-        android:theme="@style/AppTheme.WhiteAccent"/>
+    <include
+        layout="@layout/loading_view"/>
 
     <TextView
         android:id="@+id/tweets_label"

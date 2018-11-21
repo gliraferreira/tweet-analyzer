@@ -17,6 +17,7 @@ import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.User
 import br.com.gabriellira.tweetsentimentanalyzer.ui.utils.argument
 import br.com.gabriellira.tweetsentimentanalyzer.ui.utils.showToast
 import kotlinx.android.synthetic.main.activity_tweets.*
+import kotlinx.android.synthetic.main.loading_view.loadingHolder
 import javax.inject.Inject
 
 class TweetsActivity : AppCompatActivity() {
@@ -103,7 +104,7 @@ class TweetsActivity : AppCompatActivity() {
         tweets_label.text = getString(R.string.empty_tweets_error)
         tweets_label.visibility = View.VISIBLE
         tweets_recyclerview.visibility = View.GONE
-        tweets_progress_bar.visibility = View.GONE
+        loadingHolder.visibility = View.GONE
     }
 
     fun displayTweetAnalyzedError() {
@@ -113,7 +114,7 @@ class TweetsActivity : AppCompatActivity() {
     fun displayLoadingUI() {
         tweets_recyclerview.visibility = View.GONE
         tweets_label.visibility = View.GONE
-        tweets_progress_bar.visibility = View.VISIBLE
+        loadingHolder.visibility = View.VISIBLE
     }
 
     fun hideLoadingUI() {
@@ -123,7 +124,7 @@ class TweetsActivity : AppCompatActivity() {
     private fun displayList() {
         tweets_recyclerview.visibility = View.VISIBLE
         tweets_label.visibility = View.GONE
-        tweets_progress_bar.visibility = View.GONE
+        loadingHolder.visibility = View.GONE
     }
 
     companion object {
