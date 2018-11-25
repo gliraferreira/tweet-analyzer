@@ -47,7 +47,7 @@ class TweetsAdapter(
         holder.bind(tweet, tweetListner)
     }
 
-    class TweetViewHolder(itemView: View?) : RecyclerView.ViewHolder(itemView) {
+    class TweetViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         fun bind(tweet: Tweet, tweetListner: (Tweet) -> Unit) {
             with (itemView) {
