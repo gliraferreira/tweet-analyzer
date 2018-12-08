@@ -6,7 +6,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:cardBackgroundColor="@android:color/white"
-    app:cardUseCompatPadding="true">
+    app:cardUseCompatPadding="true"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:layout_marginTop="10dp">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,28 +20,31 @@
            android:id="@+id/tweet_item_text"
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
-           android:lines="4"
            android:padding="10dp"
            android:textSize="@dimen/tweet_text"
            tools:text="@string/tweet_text_placeholder"/>
 
-        <LinearLayout
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="5dp"
             android:orientation="horizontal"
-            android:gravity="end">
+            android:gravity="end"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:paddingBottom="5dp">
 
             <TextView
                 android:id="@+id/tweet_item_created_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAlignment="textStart"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="100dp"
                 android:textSize="@dimen/tweet_creation_date"
-                tools:text="20/09/2018 21:35"/>
+                tools:text="20/09/2018 21:35"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"/>
 
             <Button
                 android:id="@+id/tweet_item_btn_analyze"
@@ -48,24 +54,27 @@
                 android:layout_gravity="right"
                 android:background="@drawable/rounded_corner"
                 android:textColor="@color/text_color"
-                android:visibility="visible"/>
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:visibility="gone"/>
 
             <LinearLayout
                 android:id="@+id/tweet_item_container_sentiment"
                 android:layout_width="@dimen/shape_sentiment_width"
                 android:layout_height="@dimen/shape_sentiment_height"
-                android:layout_gravity="end"
-                android:paddingStart="15dp"
                 android:paddingTop="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:background="@drawable/sentiment_shape"
-                android:visibility="gone">
+                android:visibility="gone"
+                app:layout_constraintEnd_toEndOf="parent"
+                tools:visibility="visible">
 
                 <ImageView
                     android:id="@+id/tweet_item_img_sentiment"
                     android:layout_width="@dimen/sentiment_face"
                     android:layout_height="@dimen/sentiment_face"
                     android:layout_marginRight="10dp"
-                    android:contentDescription="TODO" android:src="@drawable/happy_face"/>
+                    android:src="@drawable/happy_face"/>
 
                 <TextView
                     android:id="@+id/tweet_item_tv_sentiment"
@@ -82,7 +91,8 @@
                 android:layout_height="@dimen/shape_sentiment_height"
                 android:background="@drawable/sentiment_analysing_shape"
                 android:visibility="gone"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent">
 
                 <ProgressBar
                     android:id="@+id/tweet_item_progress_bar"
@@ -93,7 +103,7 @@
 
             </LinearLayout>
 
-        </LinearLayout>
+        </android.support.constraint.ConstraintLayout>
 
     </LinearLayout>
 

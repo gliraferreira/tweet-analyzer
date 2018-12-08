@@ -7,7 +7,11 @@ import retrofit2.http.*
 
 interface TwitterAPI {
     @GET("/1.1/statuses/user_timeline.json")
-    fun getTweets(@Query("screen_name") screenName: String, @Query("include_rts") includeRts: Boolean = false): Observable<List<StatusResponse>>
+    fun getTweets(
+            @Query("screen_name") screenName: String,
+            @Query("include_rts") includeRts: Boolean = false,
+            @Query("tweet_mode") tweet_mode: String = "extended"
+    ): Observable<List<StatusResponse>>
 
     @GET("/1.1/users/show.json")
     fun getTwitterUser(@Query("screen_name") screenName: String): Observable<UsersResponse>

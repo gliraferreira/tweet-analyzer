@@ -13,7 +13,7 @@ class TweetMapper {
             val createdAtDate = SimpleDateFormat(STATUS_RESPONSE_DATE_FORMAT, Locale.ENGLISH).parse(created_at)
             return Tweet(
                     id,
-                    text,
+                    full_text,
                     createdAtDate
             )
         }
