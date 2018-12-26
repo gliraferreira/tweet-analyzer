@@ -7,7 +7,7 @@ import br.com.gabriellira.tweetsentimentanalyzer.data.network.BaseRepository
 import br.com.gabriellira.tweetsentimentanalyzer.data.network.twitter.api.AuthAPI
 import br.com.gabriellira.tweetsentimentanalyzer.data.network.twitter.api.TwitterAPI
 import br.com.gabriellira.tweetsentimentanalyzer.data.network.twitter.entities.StatusResponse
-import br.com.gabriellira.tweetsentimentanalyzer.data.network.twitter.entities.UsersResponse
+import br.com.gabriellira.tweetsentimentanalyzer.data.network.twitter.entities.UserResponse
 import br.com.gabriellira.tweetsentimentanalyzer.data.network.twitter.interceptors.CredentialsInterceptor
 import br.com.gabriellira.tweetsentimentanalyzer.data.network.twitter.interceptors.RequestAccessTokenInterceptor
 import io.reactivex.Observable
@@ -31,7 +31,7 @@ class TwitterRepository(
         }
     }
 
-    override fun searchUser(userName: String): Observable<UsersResponse> {
+    override fun searchUser(userName: String): Observable<UserResponse> {
         return getAccessToken().flatMap { twitterApi.getTwitterUser(userName) }
     }
 

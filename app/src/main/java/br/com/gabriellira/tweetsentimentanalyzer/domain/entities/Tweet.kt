@@ -7,4 +7,5 @@ data class Tweet(
         val text: String,
         val creationDate: Date,
         val sentiment: Sentiment = Sentiment.NEUTRAL,
-        val sentimentStatus: SentimentStatus = SentimentStatus.NOT_ANALYZED)
+        val sentimentStatus: SentimentStatus = SentimentStatus.NOT_ANALYZED,
+        val user: User)

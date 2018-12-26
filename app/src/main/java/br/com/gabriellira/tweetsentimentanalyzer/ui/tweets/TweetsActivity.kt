@@ -16,6 +16,7 @@ import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.Tweet
 import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.User
 import br.com.gabriellira.tweetsentimentanalyzer.ui.utils.argument
 import br.com.gabriellira.tweetsentimentanalyzer.ui.utils.showToast
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_tweets.*
 import kotlinx.android.synthetic.main.loading_view.loadingHolder
 import javax.inject.Inject
@@ -46,7 +47,21 @@ class TweetsActivity : AppCompatActivity() {
         viewModel = ViewModelProviders.of(this, this.tweetsViewModelFactory).get(TweetsViewModel::class.java)
         observeTweets()
         observeAnalyzedTweet()
+        loadUserInfo()
         viewModel.loadTweets(userExtra.userName)
+    }
+
+    private fun loadUserInfo() {
+        with(userExtra) {
+            Glide
+                    .with(this@TweetsActivity)
+                    .load(profilePictureUrl)
+                    .into(profile_photo)
+            Glide
+                    .with(this@TweetsActivity)
+                    .load(bannerUrl)
+                    .into(profile_header_photo)
+        }
     }
 
     private fun observeAnalyzedTweet() {

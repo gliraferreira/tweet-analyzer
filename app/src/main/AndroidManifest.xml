@@ -14,7 +14,6 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".ui.home.HomeActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,8 +22,7 @@
         </activity>
         <activity
             android:name=".ui.tweets.TweetsActivity"
-            android:parentActivityName=".ui.home.HomeActivity"
-            android:screenOrientation="portrait"/>
+            android:parentActivityName=".ui.home.HomeActivity"/>
     </application>
 
 </manifest>

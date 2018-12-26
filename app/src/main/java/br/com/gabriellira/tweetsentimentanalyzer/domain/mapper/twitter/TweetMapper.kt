@@ -6,7 +6,7 @@ import br.com.gabriellira.tweetsentimentanalyzer.data.network.twitter.entities.S
 import java.text.SimpleDateFormat
 import java.util.*
 
-class TweetMapper {
+class TweetMapper(private val userMapper: UserMapper) {
 
     fun statusResponseToTweet(status: StatusResponse): Tweet {
         with(status) {
@@ -14,7 +14,8 @@ class TweetMapper {
             return Tweet(
                     id,
                     full_text,
-                    createdAtDate
+                    createdAtDate,
+                    user = userMapper.mapUserFromResponse(user)
             )
         }
     }

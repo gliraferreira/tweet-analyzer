@@ -1,17 +1,17 @@
 package br.com.gabriellira.tweetsentimentanalyzer.domain.mapper.twitter
 
 import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.User
-import br.com.gabriellira.tweetsentimentanalyzer.data.network.twitter.entities.UsersResponse
+import br.com.gabriellira.tweetsentimentanalyzer.data.network.twitter.entities.UserResponse
 
 class UserMapper {
-    fun mapUserFromResponse(response: UsersResponse): User {
+    fun mapUserFromResponse(response: UserResponse): User {
         with(response) {
             return User(
                     id,
                     userName = screen_name,
                     name = name,
-                    bannerUrl = profile_background_image_url,
-                    profilePictureUrl = profile_image_url
+                    bannerUrl = profile_banner_url,
+                    profilePictureUrl = profile_image_url_https
             )
         }
     }

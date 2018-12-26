@@ -20,4 +20,7 @@
     <string name="neutral_sentiment">NEUTRAL</string>
     <string name="tweet_analyze_error">Sorry, there was a problem to analyze this tweet.</string>
     <string name="empty_tweets_error">We coudn\'t find any tweet for this user.</string>
+    <string name="appbar_scrolling_view_behavior" translatable="false">android.support.design.widget.AppBarLayout$ScrollingViewBehavior</string>
+    <string name="profile_header_photo_description">Profile header photo</string>
+    <string name="profile_photo_description">Profile photo</string>
 </resources>
