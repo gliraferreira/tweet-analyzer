@@ -21,6 +21,7 @@
             </intent-filter>
         </activity>
         <activity
+            android:theme="@style/AppTheme.NoActionBar"
             android:name=".ui.tweets.TweetsActivity"
             android:parentActivityName=".ui.home.HomeActivity"/>
     </application>

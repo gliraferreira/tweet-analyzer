@@ -18,17 +18,19 @@
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="205dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleMarginStart="48dp"
             app:expandedTitleMarginEnd="64dp"
+            app:expandedTitleGravity="center_horizontal|bottom"
+            app:expandedTitleTextAppearance="@style/TextAppearance.AppCompat.Title"
             android:fitsSystemWindows="true">
 
             <ImageView
                 android:id="@+id/profile_header_photo"
                 android:layout_width="match_parent"
-                android:layout_height="155dp"
+                android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 android:contentDescription="@string/profile_header_photo_description"
                 app:layout_collapseMode="parallax" />
@@ -42,6 +44,13 @@
                 app:civ_border_color="#FFF"
                 android:layout_gravity="center"/>
 
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                app:layout_collapseMode="pin" />
+            
         </android.support.design.widget.CollapsingToolbarLayout>
 
     </android.support.design.widget.AppBarLayout>

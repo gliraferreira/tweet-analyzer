@@ -91,8 +91,9 @@ class TweetsActivity : AppCompatActivity() {
     }
 
     private fun setupToolbar() {
+        setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = "${userExtra.name}'s tweets"
+        supportActionBar?.title = userExtra.name
     }
 
     private fun setupTweetsAdapter() {
