@@ -23,7 +23,7 @@
             app:contentScrim="?attr/colorPrimary"
             app:expandedTitleMarginStart="48dp"
             app:expandedTitleMarginEnd="64dp"
-            app:expandedTitleGravity="center_horizontal|bottom"
+            app:expandedTitleGravity="left|bottom"
             app:expandedTitleTextAppearance="@style/TextAppearance.AppCompat.Title"
             android:fitsSystemWindows="true">
 
@@ -42,7 +42,9 @@
                 android:layout_height="96dp"
                 app:civ_border_width="2dp"
                 app:civ_border_color="#FFF"
-                android:layout_gravity="center"/>
+                android:layout_gravity="start|bottom"
+                android:layout_marginBottom="60dp"
+                android:layout_marginStart="45dp"/>
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -50,7 +52,7 @@
                 android:layout_height="?attr/actionBarSize"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                 app:layout_collapseMode="pin" />
-            
+
         </android.support.design.widget.CollapsingToolbarLayout>
 
     </android.support.design.widget.AppBarLayout>

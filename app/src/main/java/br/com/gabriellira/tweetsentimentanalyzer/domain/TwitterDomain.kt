@@ -14,7 +14,7 @@ import retrofit2.HttpException
 class TwitterDomain (
         private val dataSource: TwitterDataSource,
         private val userMapper: UserMapper = UserMapper(),
-        private val tweetMapper: TweetMapper = TweetMapper(userMapper)
+        private val tweetMapper: TweetMapper = TweetMapper()
 ) {
 
     enum class LoadUserError {

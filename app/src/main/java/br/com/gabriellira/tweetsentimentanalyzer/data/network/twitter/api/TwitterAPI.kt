@@ -10,7 +10,9 @@ interface TwitterAPI {
     fun getTweets(
             @Query("screen_name") screenName: String,
             @Query("include_rts") includeRts: Boolean = false,
-            @Query("tweet_mode") tweet_mode: String = "extended"
+            @Query("exclude_replies") excludeReplies: Boolean = true,
+            @Query("tweet_mode") tweet_mode: String = "extended",
+            @Query("trim_user") trimUser: String = "t"
     ): Observable<List<StatusResponse>>
 
     @GET("/1.1/users/show.json")
