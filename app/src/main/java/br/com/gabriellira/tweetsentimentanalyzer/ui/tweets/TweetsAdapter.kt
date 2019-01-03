@@ -65,7 +65,7 @@ class TweetsAdapter(
                     SentimentStatus.ANALYZED -> {
                         val color = ContextCompat.getColor(itemView.context, getColorFromSentiment(tweet.sentiment))
 
-                        val background = tweet_item_container_sentiment.background as GradientDrawable
+                        val background = tweet_item_color_status.background as GradientDrawable
                         background.setColor(color)
 
                         tweet_item_img_sentiment.setImageResource(getIconFromSentiment(tweet.sentiment))
@@ -81,18 +81,21 @@ class TweetsAdapter(
             tweet_item_btn_analyze.visibility = View.GONE
             tweet_item_container_sentiment.visibility = View.GONE
             tweet_item_container_sentiment_loading.visibility = View.VISIBLE
+            tweet_item_color_status.visibility = View.INVISIBLE
         }
 
         private fun View.displaySentiment() {
             tweet_item_btn_analyze.visibility = View.GONE
             tweet_item_container_sentiment_loading.visibility = View.GONE
             tweet_item_container_sentiment.visibility = View.VISIBLE
+            tweet_item_color_status.visibility = View.VISIBLE
         }
 
         private fun View.displayButton() {
             tweet_item_btn_analyze.visibility = View.VISIBLE
             tweet_item_container_sentiment.visibility = View.GONE
             tweet_item_container_sentiment_loading.visibility = View.GONE
+            tweet_item_color_status.visibility = View.INVISIBLE
         }
 
         private fun getColorFromSentiment(sentiment: Sentiment): Int {
