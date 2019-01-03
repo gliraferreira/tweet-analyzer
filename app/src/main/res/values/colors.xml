@@ -11,5 +11,4 @@
     <color name="neutral_color">#bababa</color>
     <color name="happy_color">#fcf64a</color>
     <color name="sentiment_loading">#f4eeee</color>
-    <color name="separator">#cecece</color>
 </resources>

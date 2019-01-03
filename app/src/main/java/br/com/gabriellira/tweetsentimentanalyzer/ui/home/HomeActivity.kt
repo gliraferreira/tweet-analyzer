@@ -2,6 +2,7 @@ package br.com.gabriellira.tweetsentimentanalyzer.ui.home
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.graphics.Color
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.KeyEvent
@@ -17,7 +18,6 @@ import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.User
 import br.com.gabriellira.tweetsentimentanalyzer.ui.tweets.TweetsActivity
 import br.com.gabriellira.tweetsentimentanalyzer.ui.utils.launchActivity
 import kotlinx.android.synthetic.main.home_content.home_btn_search_user
-import kotlinx.android.synthetic.main.home_content.home_error_label
 import kotlinx.android.synthetic.main.home_content.home_et_username
 import kotlinx.android.synthetic.main.home_content.home_label
 import kotlinx.android.synthetic.main.loading_view.loadingHolder
@@ -89,8 +89,8 @@ class HomeActivity : AppCompatActivity(), TextView.OnEditorActionListener {
 
     private fun resetLayout() {
         home_label.visibility = View.VISIBLE
+        home_label.setTextColor(Color.BLACK)
         loadingHolder.visibility = View.GONE
-        home_error_label.visibility = View.GONE
         home_btn_search_user.isEnabled = true
         home_et_username.isEnabled = true
     }
@@ -105,9 +105,8 @@ class HomeActivity : AppCompatActivity(), TextView.OnEditorActionListener {
 
     private fun displayErrorMessage(message: String) {
         resetLayout()
-        home_label.visibility = View.GONE
-        home_error_label.text = message
-        home_error_label.visibility = View.VISIBLE
+        home_label.setTextColor(Color.RED)
+        home_label.text = message
     }
 
     override fun onEditorAction(v: TextView?, actionId: Int, event: KeyEvent?): Boolean {
