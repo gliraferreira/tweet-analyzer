@@ -103,35 +103,23 @@ class TweetsActivity : AppCompatActivity() {
         supportActionBar?.title = " "
 
         app_bar_layout?.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { _, verticalOffset ->
-            var isShow = true
             val maxScroll = app_bar_layout?.totalScrollRange ?: 0
             val maxScrollOffset = maxScroll * SCROLL_MIN_OFFSET_PERCENTAGE
             val relativeOffset = Math.max(0f, Math.abs(verticalOffset) - (maxScroll - maxScrollOffset))
             val percentage = relativeOffset / maxScrollOffset
 
-            Log.i("OFFSET-INFO",
-                """
-                maxScroll -> $maxScroll
-                maxScrollOffset -> $maxScrollOffset
-                relativeOffset -> $relativeOffset
-                percentage -> $percentage
-                """
-            )
-
             val alpha = if (percentage > 0) 0f else 1f
+            val alphaPercentage = (percentage * 255).toInt()
+
             profile_photo.alpha = alpha
             profile_name.alpha = alpha
-            setListPaddingTop(
-                    if (alpha == 0f) RECYCLER_VIEW_PADDING_TOP - relativeOffset.toInt()
-                    else RECYCLER_VIEW_PADDING_TOP
-            )
-
-            if (maxScroll + verticalOffset == 0) {
+            collapsing_toolbar?.background?.alpha = alphaPercentage
+            if (alpha == 0f) {
+                setListPaddingTop(RECYCLER_VIEW_PADDING_TOP - relativeOffset.toInt())
                 collapsing_toolbar?.title = userExtra.name
-                isShow = true
-            } else if (isShow) {
+            } else {
+                setListPaddingTop(RECYCLER_VIEW_PADDING_TOP)
                 collapsing_toolbar?.title = " "
-                isShow = false
             }
         })
     }
