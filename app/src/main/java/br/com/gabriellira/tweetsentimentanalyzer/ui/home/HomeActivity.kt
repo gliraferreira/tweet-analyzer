@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.graphics.Color
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.view.KeyEvent
 import android.view.View
@@ -89,6 +90,7 @@ class HomeActivity : AppCompatActivity(), TextView.OnEditorActionListener {
 
     private fun resetLayout() {
         home_label.visibility = View.VISIBLE
+        home_label.text = getString(R.string.home_label_message)
         home_label.setTextColor(Color.BLACK)
         loadingHolder.visibility = View.GONE
         home_btn_search_user.isEnabled = true
