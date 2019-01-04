@@ -2,9 +2,14 @@ package br.com.gabriellira.tweetsentimentanalyzer.ui.tweets
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.graphics.Typeface
+import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
+import android.support.design.widget.AppBarLayout
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
+import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import br.com.gabriellira.tweetsentimentanalyzer.App
@@ -52,6 +57,8 @@ class TweetsActivity : AppCompatActivity() {
     }
 
     private fun loadUserInfo() {
+        profile_name.setTypeface(profile_name.typeface, Typeface.BOLD)
+        profile_name.text = userExtra.name
         with(userExtra) {
             Glide
                     .with(this@TweetsActivity)
@@ -93,7 +100,51 @@ class TweetsActivity : AppCompatActivity() {
     private fun setupToolbar() {
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = userExtra.name
+        supportActionBar?.title = " "
+
+        app_bar_layout?.addOnOffsetChangedListener(AppBarLayout.OnOffsetChangedListener { _, verticalOffset ->
+            var isShow = true
+            val maxScroll = app_bar_layout?.totalScrollRange ?: 0
+            val maxScrollOffset = maxScroll * SCROLL_MIN_OFFSET_PERCENTAGE
+            val relativeOffset = Math.max(0f, Math.abs(verticalOffset) - (maxScroll - maxScrollOffset))
+            val percentage = relativeOffset / maxScrollOffset
+
+            Log.i("OFFSET-INFO",
+                """
+                maxScroll -> $maxScroll
+                maxScrollOffset -> $maxScrollOffset
+                relativeOffset -> $relativeOffset
+                percentage -> $percentage
+                """
+            )
+
+            val alpha = if (percentage > 0) 0f else 1f
+            profile_photo.alpha = alpha
+            profile_name.alpha = alpha
+            setListPaddingTop(
+                    if (alpha == 0f) RECYCLER_VIEW_PADDING_TOP - relativeOffset.toInt()
+                    else RECYCLER_VIEW_PADDING_TOP
+            )
+
+            if (maxScroll + verticalOffset == 0) {
+                collapsing_toolbar?.title = userExtra.name
+                isShow = true
+            } else if (isShow) {
+                collapsing_toolbar?.title = " "
+                isShow = false
+            }
+        })
+    }
+
+    private fun setListPaddingTop(top: Int) {
+        with(tweets_recyclerview) {
+            setPadding(
+                    paddingLeft,
+                    top,
+                    paddingRight,
+                    paddingBottom
+            )
+        }
     }
 
     private fun setupTweetsAdapter() {
@@ -145,5 +196,7 @@ class TweetsActivity : AppCompatActivity() {
 
     companion object {
         const val USER_EXTRA = "user"
+        private const val SCROLL_MIN_OFFSET_PERCENTAGE = 0.4F
+        private const val RECYCLER_VIEW_PADDING_TOP = 150
     }
 }
