@@ -3,26 +3,29 @@ package br.com.gabriellira.tweetsentimentanalyzer.ui.tweets
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.graphics.Typeface
-import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
-import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import br.com.gabriellira.tweetsentimentanalyzer.App
 import br.com.gabriellira.tweetsentimentanalyzer.R
 import br.com.gabriellira.tweetsentimentanalyzer.di.app.AppModule
 import br.com.gabriellira.tweetsentimentanalyzer.di.presentation.DaggerPresentationComponent
-import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.SentimentStatus
 import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.Tweet
 import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.User
 import br.com.gabriellira.tweetsentimentanalyzer.ui.utils.argument
 import br.com.gabriellira.tweetsentimentanalyzer.ui.utils.showToast
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.activity_tweets.*
+import kotlinx.android.synthetic.main.activity_tweets.app_bar_layout
+import kotlinx.android.synthetic.main.activity_tweets.collapsing_toolbar
+import kotlinx.android.synthetic.main.activity_tweets.profile_header_photo
+import kotlinx.android.synthetic.main.activity_tweets.profile_name
+import kotlinx.android.synthetic.main.activity_tweets.profile_photo
+import kotlinx.android.synthetic.main.activity_tweets.toolbar
+import kotlinx.android.synthetic.main.activity_tweets.tweets_label
+import kotlinx.android.synthetic.main.activity_tweets.tweets_recyclerview
 import kotlinx.android.synthetic.main.loading_view.loadingHolder
 import javax.inject.Inject
 
@@ -114,6 +117,7 @@ class TweetsActivity : AppCompatActivity() {
             profile_photo.alpha = alpha
             profile_name.alpha = alpha
             collapsing_toolbar?.background?.alpha = alphaPercentage
+
             if (alpha == 0f) {
                 setListPaddingTop(RECYCLER_VIEW_PADDING_TOP - relativeOffset.toInt())
                 collapsing_toolbar?.title = userExtra.name
@@ -151,28 +155,28 @@ class TweetsActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    fun loadTweets(tweets: List<Tweet>) {
+    private fun loadTweets(tweets: List<Tweet>) {
         adapter.setTweets(tweets)
     }
 
-    fun displayEmptyListUI() {
+    private fun displayEmptyListUI() {
         tweets_label.text = getString(R.string.empty_tweets_error)
         tweets_label.visibility = View.VISIBLE
         tweets_recyclerview.visibility = View.GONE
         loadingHolder.visibility = View.GONE
     }
 
-    fun displayTweetAnalyzedError() {
+    private fun displayTweetAnalyzedError() {
         showToast(getString(R.string.tweet_analyze_error))
     }
 
-    fun displayLoadingUI() {
+    private fun displayLoadingUI() {
         tweets_recyclerview.visibility = View.GONE
         tweets_label.visibility = View.GONE
         loadingHolder.visibility = View.VISIBLE
     }
 
-    fun hideLoadingUI() {
+    private fun hideLoadingUI() {
         displayList()
     }
 
