@@ -26,13 +26,15 @@ class TwitterDomain (
     }
 
     @SuppressLint("CheckResult")
-    fun loadTweetsList(userName: String, success: (data: List<Tweet>) -> Unit, error: (result: LoadTweetsError) -> Unit) {
+    fun loadTweetsList(userName: String,
+                       success: (data: List<Tweet>) -> Unit,
+                       error: (result: LoadTweetsError) -> Unit) {
         dataSource
                 .loadTweets(userName)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap { Observable.fromIterable(it) }
-                .map { tweetMapper.statusResponseToTweet(it) }
+                .map(tweetMapper::statusResponseToTweet)
                 .toList()
                 .toObservable()
                 .subscribe(
@@ -56,12 +58,15 @@ class TwitterDomain (
     }
 
     @SuppressLint("CheckResult")
-    fun loadUserInfo(userName: String, success: (result: User) -> Unit, error: (result: LoadUserError) -> Unit) {
+    fun loadUserInfo(userName: String,
+                     success: (result: User) -> Unit,
+                     error: (result: LoadUserError) -> Unit) {
         dataSource
                 .searchUser(userName)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .map { userMapper.mapUserFromResponse(it) }
+                .map(userMapper::mapUserFromResponse)
+                .map(userMapper::replaceImageSize)
                 .flatMap { Observable.just(it) }
                 .subscribe(
                         { user -> user?.let { success(it) } },

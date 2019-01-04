@@ -4,7 +4,7 @@ import br.com.gabriellira.tweetsentimentanalyzer.domain.entities.User
 import br.com.gabriellira.tweetsentimentanalyzer.data.network.twitter.entities.UserResponse
 
 class UserMapper {
-    fun mapUserFromResponse(response: UserResponse): User {
+    fun mapUserFromResponse(response: UserResponse) : User {
         with(response) {
             return User(
                     id,
@@ -12,6 +12,18 @@ class UserMapper {
                     name = name,
                     bannerUrl = profile_banner_url,
                     profilePictureUrl = profile_image_url_https
+            )
+        }
+    }
+
+    fun replaceImageSize(user: User) : User {
+        with(user) {
+            return User(
+                    id,
+                    userName,
+                    name,
+                    bannerUrl,
+                    profilePictureUrl.replace("_normal", "")
             )
         }
     }
