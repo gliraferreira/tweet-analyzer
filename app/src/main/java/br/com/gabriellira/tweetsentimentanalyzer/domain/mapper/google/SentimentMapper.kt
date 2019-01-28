@@ -7,8 +7,8 @@ class SentimentMapper {
 
     fun mapDocumentToSentiment(document: DocumentSentiment): Sentiment {
         return when {
-            document.score < -0.33f -> Sentiment.SAD
-            document.score > 0.33f -> Sentiment.HAPPY
+            document.score < -0.25f -> Sentiment.SAD
+            document.score > 0.25f -> Sentiment.HAPPY
             else -> Sentiment.NEUTRAL
         }
     }
